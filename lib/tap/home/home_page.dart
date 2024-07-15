@@ -36,8 +36,7 @@ class HomePage extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                         ),
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 8),
                         hintText: '도서 검색하기',
                         prefixIcon: const Padding(
                           padding: EdgeInsets.only(left: 16.0),
@@ -53,6 +52,7 @@ class HomePage extends StatelessWidget {
               ),
               Expanded(
                 child: GridView.builder(
+                  padding: EdgeInsets.all(16),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // 열의 수
                     mainAxisSpacing: 10.0, // 수직 간격
