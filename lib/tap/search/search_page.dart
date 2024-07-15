@@ -31,8 +31,7 @@ class SearchPage extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                         ),
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 8),
                         hintText: '도서 검색하기',
                         prefixIcon: const Padding(
                           padding: EdgeInsets.only(left: 16.0),
@@ -43,23 +42,18 @@ class SearchPage extends StatelessWidget {
                   ),
                 ),
               ),
-                Expanded(
-                  child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: entries.length,
-                      itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              height: 50,
-                            
-                              child: Center(child: Text('Entry ${entries[index]}')),
-                            );
-                      }
-                  ),
-                )
+              Expanded(
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: entries.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        height: 50,
+                        child: Center(child: Text('Entry ${entries[index]}')),
+                      );
+                    }),
+              )
             ],
-          
-          
-          
           ),
         ));
   }
