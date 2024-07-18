@@ -38,7 +38,7 @@ class WritingPage extends StatelessWidget {
                     children: [
                       Container(
                         child: Image.network(
-                          'https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2FMjAyMDA2MTJfMyAg%2FMDAxNTkxODk0NjQzOTk4.w1tstRuQgP0zlPFZ1n4R74oHfaWaO5s7nLqUtIHT5MMg.47Dz7NjA876MYyYdeu4inMNzsRsTTxuKNI7l89jjzdog.JPEG%2FexternalFile.jpg&type=a340',
+                          'https://image.aladin.co.kr/product/34179/34/cover200/k122931213_1.jpg?RS=170',
                         ),
                       ),
                       Text('2024.7.15'),
@@ -46,7 +46,7 @@ class WritingPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30,),
-                Text('한글로만 리뷰를 써보세요'),
+                Text('한문장으로만 리뷰를 써보세요'),
               ],
             ),
           ),

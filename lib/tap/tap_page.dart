@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled9/tap/account/account_page.dart';
 import 'package:untitled9/tap/home/home_page.dart';
 import 'package:untitled9/tap/ranking/raking_page.dart';
-import 'package:untitled9/tap/search/search_page.dart';
+import 'package:untitled9/tap/review_search/review_page.dart';
 import 'package:untitled9/tap/writing/writing_page.dart';
 
 class TapPage extends StatefulWidget {
@@ -14,9 +14,9 @@ class TapPage extends StatefulWidget {
 
 class _TapPageState extends State<TapPage> {
   int _currentIndex = 0;
-  final _pages = const [
+  final _pages =  [
     HomePage(),
-    SearchPage(),
+    ReviewPage(),
     WritingPage(),
     RankingPage(),
     AccountPage(),
@@ -30,10 +30,8 @@ class _TapPageState extends State<TapPage> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index) {
-          print('잘되가나');
           setState(() {
             _currentIndex = index;
-
           });
         },
         items: const [
@@ -43,7 +41,7 @@ class _TapPageState extends State<TapPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Search',
+            label: 'Reviews',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.wallet),
