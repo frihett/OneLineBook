@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:untitled9/tap/components/my_page_menu_list.dart';
 
+import '../../data_source/book_api.dart';
+
 class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
+
+  AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class AccountPage extends StatelessWidget {
                     width: 100,
                     height: 100,
                     child: Image.network(
-                        'https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2FMjAyMDA2MTJfMyAg%2FMDAxNTkxODk0NjQzOTk4.w1tstRuQgP0zlPFZ1n4R74oHfaWaO5s7nLqUtIHT5MMg.47Dz7NjA876MYyYdeu4inMNzsRsTTxuKNI7l89jjzdog.JPEG%2FexternalFile.jpg&type=a340')),
+                        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA1MTFfMTcz%2FMDAxNzE1NDM0ODkxOTQ4.tUiEnLiUgC_c0iIq6zGOZ3ybhaoNzI2IZKDVJwAOt44g.zUFXe0braYWwkuvplm-dyNUrP8higvXg_vu2ml5SETQg.JPEG%2F1715434883266.jpg&type=a340')),
                 Column(
                   children: [
                     Text('안녕하세요 xxx님'),
