@@ -1,12 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:untitled9/tap/home/home_page_view_model.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+import '../../model/book.dart';
+
+class HomePage extends StatefulWidget {
+  final HomePageViewModel homePageViewModel;
+
+  HomePage({super.key, required this.homePageViewModel});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late TextEditingController _controller;
+  String query = '';
+
+  void updateUi() => setState(() {});
+
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    widget.homePageViewModel.addListener(updateUi);
+  }
+
+  void dispose() {
+    _controller.dispose();
+    widget.homePageViewModel.removeListener(updateUi);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final homePageViewModel = widget.homePageViewModel;
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -21,11 +50,14 @@ class HomePage extends StatelessWidget {
                   child: Container(
                     width: 300,
                     child: TextFormField(
-                      onTap: () {
-                        FocusScope.of(context)
-                            .requestFocus(FocusNode()); // 현재 필드의 포커스를 해제합니다.
-                        // context.pushNamed('search');
+                      controller: _controller,
+                      onFieldSubmitted: (value) {
+                        setState(() {
+                          query = value;
+                        });
+                        homePageViewModel.fetchBook(query);
                       },
+                      onTap: () {},
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
@@ -48,6 +80,15 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 24,
               ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Text('내가 읽고 있는 책 리스트'),
+                  )
+                ],
+              ),
+
               Expanded(
                 child: GridView.builder(
                   padding: EdgeInsets.all(16),
@@ -57,15 +98,37 @@ class HomePage extends StatelessWidget {
                     crossAxisSpacing: 10.0, // 수평 간격
                     childAspectRatio: 0.7, // 각 아이템의 가로 세로 비율
                   ),
-                  itemCount: 10, // 아이템 개수
+                  itemCount: homePageViewModel.book.length, // 아이템 개수
                   itemBuilder: (context, index) {
+                    final book = homePageViewModel.book[index];
                     return GridTile(
                       child: Container(
-                        color: Colors.blueGrey[100 * (index % 9)], // 각 타일 색상
-                        child: Center(
-                          child: Text(
-                            'Item $index',
-                            style: TextStyle(fontSize: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey[100],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              Image.network(
+                                book.thumbnail,
+                                fit: BoxFit.cover,
+                                height: 80,
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Text(query),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Text(
+                                book.contents,
+                                style: TextStyle(fontSize: 20),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                         ),
                       ),

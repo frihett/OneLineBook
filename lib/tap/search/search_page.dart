@@ -1,17 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:untitled9/tap/search/search_page_view_model.dart';
 
-final List<String> entries = <String>['A', 'B', 'C'];
+class SearchPage extends StatefulWidget {
+  final SearchPageViewModel searchPageViewModel;
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+  SearchPage({super.key, required this.searchPageViewModel});
+
+  @override
+  State<SearchPage> createState() => _SearchPage();
+}
+
+class _SearchPage extends State<SearchPage> {
+  late TextEditingController _controller;
+  String query = '';
+
+  void updateUi() => setState(() {});
+
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    widget.searchPageViewModel.addListener(updateUi);
+  }
+
+  void dispose() {
+    _controller.dispose();
+    widget.searchPageViewModel.removeListener(updateUi);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final homePageViewModel = widget.searchPageViewModel;
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('검색하기'),
+          title: Text('1 Line Reviewer'),
         ),
         body: SafeArea(
           child: Column(
@@ -22,6 +48,13 @@ class SearchPage extends StatelessWidget {
                   child: Container(
                     width: 300,
                     child: TextFormField(
+                      controller: _controller,
+                      onFieldSubmitted: (value) {
+                        setState(() {
+                          query = value;
+                        });
+                        homePageViewModel.fetchBook(query);
+                      },
                       onTap: () {},
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -42,17 +75,52 @@ class SearchPage extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 24,
+              ),
               Expanded(
-                child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 50,
-                        child: Center(child: Text('Entry ${entries[index]}')),
-                      );
-                    }),
-              )
+                child: GridView.builder(
+                  padding: EdgeInsets.all(16),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // 열의 수
+                    mainAxisSpacing: 10.0, // 수직 간격
+                    crossAxisSpacing: 10.0, // 수평 간격
+                    childAspectRatio: 0.7, // 각 아이템의 가로 세로 비율
+                  ),
+                  itemCount: homePageViewModel.book.length, // 아이템 개수
+                  itemBuilder: (context, index) {
+                    final book = homePageViewModel.book[index];
+                    return GridTile(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey[100],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              Image.network(
+                                book.thumbnail,
+                                fit: BoxFit.cover,
+                                height: 80,
+                              ),
+                              SizedBox(height: 16),
+                              Text(query),
+                              SizedBox(height: 16),
+                              Text(
+                                book.contents,
+                                style: TextStyle(fontSize: 20),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ));
