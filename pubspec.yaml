@@ -39,6 +39,8 @@ dependencies:
   json_annotation: ^4.9.0
   http: ^1.2.2
   kakao_flutter_sdk: ^1.9.5
+  firebase_core: ^3.2.0
+  firebase_auth: ^5.1.2
 
 dev_dependencies:
   flutter_test:
