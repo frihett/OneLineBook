@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled9/repository/book_repository_impl.dart';
 import 'package:untitled9/tap/account/account_page.dart';
 import 'package:untitled9/tap/home/home_page.dart';
+import 'package:untitled9/tap/home/home_page_view_model.dart';
 import 'package:untitled9/tap/ranking/raking_page.dart';
 import 'package:untitled9/tap/review_search/review_page.dart';
 import 'package:untitled9/tap/writing/writing_page.dart';
+
+import 'account/account_page_view_model.dart';
 
 class TapPage extends StatefulWidget {
   const TapPage({super.key});
@@ -14,12 +19,14 @@ class TapPage extends StatefulWidget {
 
 class _TapPageState extends State<TapPage> {
   int _currentIndex = 0;
-  final _pages =  [
-    HomePage(),
+  final _pages = [
+    HomePage(homePageViewModel: HomePageViewModel(
+        bookRepository: BookRepositoryImpl()),
+    ),
     ReviewPage(),
     WritingPage(),
     RankingPage(),
-    AccountPage(),
+    ChangeNotifierProvider(create: (context) => AccountViewModel(), child: AccountPage(),)
   ];
 
   @override
