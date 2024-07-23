@@ -1,16 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled9/provider/user_provider.dart';
 import 'package:untitled9/tap/components/my_page_menu_list.dart';
 
-import '../../data_source/book_api.dart';
+import 'account_page_view_model.dart';
 
-class AccountPage extends StatelessWidget {
-
+class AccountPage extends StatefulWidget {
   AccountPage({super.key});
 
   @override
+  State<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      final viewmodel = context.read<AccountViewModel>();
+      final viewmodel2 = context.read<UserProvider>();
+      viewmodel2.fetchUserInfo();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final model = context.watch<AccountViewModel>();
+    final model2 = context.watch<UserProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('내 프로필'),
@@ -22,17 +40,19 @@ class AccountPage extends StatelessWidget {
             Column(
               children: [
                 Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA1MTFfMTcz%2FMDAxNzE1NDM0ODkxOTQ4.tUiEnLiUgC_c0iIq6zGOZ3ybhaoNzI2IZKDVJwAOt44g.zUFXe0braYWwkuvplm-dyNUrP8higvXg_vu2ml5SETQg.JPEG%2F1715434883266.jpg&type=a340')),
+                  width: 100,
+                  height: 100,
+                  child: model2.user?.photoURL != null
+                      ? Image.network(model2.user!.photoURL.toString())
+                      : Icon(Icons.account_circle, size: 100),
+                ),
                 Column(
                   children: [
-                    Text('안녕하세요 xxx님'),
+                    Text('안녕하세요 게스트님'),
                     SizedBox(
                       height: 12,
                     ),
-                    Text('ssgodda@naver.com')
+                    Text('이메일은 ${model2.user?.email ?? '알 수 없음'}')
                   ],
                 ),
               ],
