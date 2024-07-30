@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled9/tap/components/my_page_menu_bar.dart';
+
+import 'my_page_menu_bar.dart';
 
 class MyPageMenuList extends StatefulWidget {
   const MyPageMenuList({super.key});

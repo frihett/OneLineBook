@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:untitled9/repository/book_repository.dart';
+import 'package:untitled9/domain/repository/book_repository.dart';
 
-import '../../model/book.dart';
+import '../../../domain/model/book.dart';
 
 class HomePageViewModel with ChangeNotifier {
   final BookRepository _bookRepository;

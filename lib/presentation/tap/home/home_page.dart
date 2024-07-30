@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:untitled9/tap/home/home_page_view_model.dart';
-
-import '../../model/book.dart';
+import 'package:go_router/go_router.dart';
+import 'home_page_view_model.dart';
 
 class HomePage extends StatefulWidget {
   final HomePageViewModel homePageViewModel;
@@ -57,7 +56,9 @@ class _HomePageState extends State<HomePage> {
                         });
                         homePageViewModel.fetchBook(query);
                       },
-                      onTap: () {},
+                      onTap: () {
+                        context.push('/bookSearching');
+                      },
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
@@ -88,7 +89,6 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-
               Expanded(
                 child: GridView.builder(
                   padding: EdgeInsets.all(16),
@@ -118,9 +118,16 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: 16,
                               ),
-                              Text(query),
+                              Align(
+                                child: Text(query),
+                                alignment: Alignment.centerLeft,
+                              ),
+                              Align(
+                                child: Text(book.authors.toString()),
+                                alignment: Alignment.centerLeft,
+                              ),
                               SizedBox(
-                                height: 16,
+                                height: 8,
                               ),
                               Text(
                                 book.contents,
