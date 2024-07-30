@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled9/provider/user_provider.dart';
-import 'package:untitled9/tap/components/my_page_menu_list.dart';
 
+import '../../../core/provider/user_provider.dart';
+import '../components/my_page_menu_list.dart';
 import 'account_page_view_model.dart';
 
 class AccountPage extends StatefulWidget {
@@ -48,7 +48,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 Column(
                   children: [
-                    Text('안녕하세요 게스트님'),
+                    Text('안녕하세요 ${model2.user?.displayName}님'),
                     SizedBox(
                       height: 12,
                     ),
