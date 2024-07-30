@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled9/config/ui_style/ui_style.dart';
 import 'package:untitled9/presentation/tap/splash/splash_page.dart';
 import 'config/router/router.dart';
 import 'core/provider/user_provider.dart';
@@ -23,8 +25,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: goRouter,
+    return ScreenUtilInit(
+      designSize: Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          routerConfig: goRouter,
+        );
+      },
     );
   }
 }
