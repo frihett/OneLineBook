@@ -32,7 +32,12 @@ class WritingPageViewModel with ChangeNotifier {
           dateTime: DateTime.now(),
           imageUrl: book.thumbnail,
           content: book.contents,
-          review: review),
+          review: review,
+          likes: 0,
+          likedUserIds: [],
+
+      ),
     );
   }
+
 }
