@@ -8,11 +8,15 @@ class Post {
   final String imageUrl;
   final String content;
   final String review;
+  final int likes;
+  final List<String> likedUserIds;
 
   Post(
       {required this.id,
-        required this.userId,
-        required this.title,
+      required this.likes,
+      required this.likedUserIds,
+      required this.userId,
+      required this.title,
       required this.dateTime,
       required this.imageUrl,
       required this.content,
@@ -20,14 +24,17 @@ class Post {
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      id : json['id'] as String,
-      userId: json['userId'] as String,
-      title: json['title'] as String,
-      dateTime: (json['dateTime'] as Timestamp).toDate(),
-      imageUrl: json['imageUrl'] as String,
-      content: json['content'] as String,
-      review: json['review'] as String,
-    );
+        id: json['id'] as String,
+        userId: json['userId'] as String,
+        title: json['title'] as String,
+        dateTime: (json['dateTime'] as Timestamp).toDate(),
+        imageUrl: json['imageUrl'] as String,
+        content: json['content'] as String,
+        review: json['review'] as String,
+        likes: json['likes'] as int,
+        likedUserIds: (json['likedUserIds'] as List<dynamic>)
+            .map((e) => e as String)
+            .toList());
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +46,8 @@ class Post {
       'imageUrl': imageUrl,
       'content': content,
       'review': review,
+      'likes': likes,
+      'likedUserIds': likedUserIds,
     };
   }
 }
