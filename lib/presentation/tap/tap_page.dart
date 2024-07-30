@@ -4,7 +4,6 @@ import 'package:untitled9/data/repository/book_repository_impl.dart';
 import 'package:untitled9/presentation/tap/ranking/raking_page.dart';
 import 'package:untitled9/presentation/tap/review_search/review_page.dart';
 import 'package:untitled9/presentation/tap/review_search/review_page_view_model.dart';
-import 'package:untitled9/presentation/tap/writing/writing_page.dart';
 import 'package:untitled9/presentation/tap/writing/writing_page_view_model.dart';
 
 import 'account/account_page.dart';
@@ -32,7 +31,7 @@ class _TapPageState extends State<TapPage> {
     ),
     ChangeNotifierProvider(
       create: (context) => WritingPageViewModel(),
-      child: WritingPage(      ),
+      child: RankingPage(),
     ),
     RankingPage(),
     ChangeNotifierProvider(
@@ -62,7 +61,6 @@ class _TapPageState extends State<TapPage> {
             icon: Icon(Icons.search),
             label: 'Reviews',
           ),
-
           BottomNavigationBarItem(
             icon: Icon(Icons.perm_media_rounded),
             label: 'Ranking',
