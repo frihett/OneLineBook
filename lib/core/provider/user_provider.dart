@@ -16,4 +16,8 @@ class UserProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void logOut() async{
+    FirebaseAuth.instance.signOut();
+  }
 }
