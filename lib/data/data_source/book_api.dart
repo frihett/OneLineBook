@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:untitled9/dto/BookInfoDto.dart';
-import 'package:untitled9/mapper/book_mapper.dart';
+import 'package:untitled9/data/mapper/book_mapper.dart';
 
-import '../model/book.dart';
+import '../../domain/model/book.dart';
+import '../dto/BookInfoDto.dart';
 
 class BookApi {
   Future<List<Book>> getBook(String query) async {

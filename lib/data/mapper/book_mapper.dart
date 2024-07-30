@@ -1,10 +1,10 @@
-import 'package:untitled9/dto/BookInfoDto.dart';
-
-import '../model/book.dart';
+import '../../domain/model/book.dart';
+import '../dto/BookInfoDto.dart';
 
 extension ToBook on BookInfoDto {
   Book toBook() {
     return Book(
+      title: title ?? '',
       authors: authors ?? [''],
       contents: contents ?? '',
       datetime:
