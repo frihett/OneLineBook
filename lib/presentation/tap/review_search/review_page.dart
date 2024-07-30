@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled9/config/ui_style/ui_style.dart';
 import 'package:untitled9/presentation/tap/review_search/review_page_view_model.dart';
 
 import '../../../domain/model/post.dart';
@@ -20,6 +21,7 @@ class _ReviewPageState extends State<ReviewPage> {
     final model = context.watch<ReviewPageViewModel>();
 
     return Scaffold(
+
         appBar: AppBar(
           centerTitle: true,
           title: Text('리뷰 검색'),
@@ -77,11 +79,11 @@ class _ReviewPageState extends State<ReviewPage> {
                               margin: EdgeInsets.only(
                                   right: 16, left: 16, bottom: 16, top: 16),
                               decoration: BoxDecoration(
-                                  color: Colors.brown.withOpacity(0.5),
+                                  color: UiStyle.secondaryColorSurface,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
                                   border: Border.all(
-                                    color: Colors.brown.withOpacity(0.7),
+                                    color: UiStyle.primaryColor,
                                     width: 2.0,
                                   )),
                               padding: EdgeInsets.all(16),
@@ -99,19 +101,36 @@ class _ReviewPageState extends State<ReviewPage> {
                                           size: 130,
                                         ),
                                   SizedBox(
-                                    height: 16,
+                                    height: 8,
                                   ),
                                   Text(
                                     post.title,
+                                    // style: UiStyle.h1Style,
+                                    // style: UiStyle.h2Style,
+                                    // style: UiStyle.h3Style,
+                                    style: UiStyle.h4Style,
+                                    // style: UiStyle.bodyStyle,
+                                    // style: UiStyle.smallStyle,
+                                    // style: UiStyle.extraSmallStyle,
+
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 24.0, left: 24),
+                                  Container(
+
                                     child: Text(
-                                      'review - ${post.review}',
+                                      '한줄평 - ${post.review}',
+                                      style: UiStyle.bodyStyle,
                                     ),
+                                    decoration: BoxDecoration(
+
+                                      color:Colors.white,
+                                        border: Border.all(
+                                      color: Colors.white,
+                                    )),
+                                    width: 400,
+                                    height:49 ,
+                                    padding: EdgeInsets.only(left: 8,right: 8),
                                   ),
                                 ],
                               ),
