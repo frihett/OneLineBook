@@ -20,6 +20,7 @@ Book _$BookFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Book {
+  String get title => throw _privateConstructorUsedError;
   List<String> get authors => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   DateTime get datetime => throw _privateConstructorUsedError;
@@ -39,7 +40,8 @@ abstract class $BookCopyWith<$Res> {
       _$BookCopyWithImpl<$Res, Book>;
   @useResult
   $Res call(
-      {List<String> authors,
+      {String title,
+      List<String> authors,
       String contents,
       DateTime datetime,
       String isbn,
@@ -61,6 +63,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
     Object? authors = null,
     Object? contents = null,
     Object? datetime = null,
@@ -70,6 +73,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? translators = null,
   }) {
     return _then(_value.copyWith(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
       authors: null == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
@@ -110,7 +117,8 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {List<String> authors,
+      {String title,
+      List<String> authors,
       String contents,
       DateTime datetime,
       String isbn,
@@ -129,6 +137,7 @@ class __$$BookImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
     Object? authors = null,
     Object? contents = null,
     Object? datetime = null,
@@ -138,6 +147,10 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? translators = null,
   }) {
     return _then(_$BookImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
       authors: null == authors
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
@@ -174,7 +187,8 @@ class __$$BookImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BookImpl with DiagnosticableTreeMixin implements _Book {
   const _$BookImpl(
-      {required final List<String> authors,
+      {required this.title,
+      required final List<String> authors,
       required this.contents,
       required this.datetime,
       required this.isbn,
@@ -187,6 +201,8 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
   factory _$BookImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookImplFromJson(json);
 
+  @override
+  final String title;
   final List<String> _authors;
   @override
   List<String> get authors {
@@ -215,7 +231,7 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Book(authors: $authors, contents: $contents, datetime: $datetime, isbn: $isbn, publisher: $publisher, thumbnail: $thumbnail, translators: $translators)';
+    return 'Book(title: $title, authors: $authors, contents: $contents, datetime: $datetime, isbn: $isbn, publisher: $publisher, thumbnail: $thumbnail, translators: $translators)';
   }
 
   @override
@@ -223,6 +239,7 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Book'))
+      ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('authors', authors))
       ..add(DiagnosticsProperty('contents', contents))
       ..add(DiagnosticsProperty('datetime', datetime))
@@ -237,6 +254,7 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookImpl &&
+            (identical(other.title, title) || other.title == title) &&
             const DeepCollectionEquality().equals(other._authors, _authors) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
@@ -255,6 +273,7 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      title,
       const DeepCollectionEquality().hash(_authors),
       contents,
       datetime,
@@ -279,7 +298,8 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
 
 abstract class _Book implements Book {
   const factory _Book(
-      {required final List<String> authors,
+      {required final String title,
+      required final List<String> authors,
       required final String contents,
       required final DateTime datetime,
       required final String isbn,
@@ -289,6 +309,8 @@ abstract class _Book implements Book {
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
 
+  @override
+  String get title;
   @override
   List<String> get authors;
   @override

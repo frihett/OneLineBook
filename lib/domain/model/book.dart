@@ -8,6 +8,7 @@ part 'book.g.dart';
 @freezed
 class Book with _$Book {
   const factory Book({
+    required String title,
     required List<String> authors,
     required String contents,
     required DateTime datetime,
