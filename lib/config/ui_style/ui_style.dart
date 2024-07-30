@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UiStyle {
-  static const Color primaryColor = Color(0xFF00D1FF);
-  static const Color primaryColorSurface = Color(0xFFEAFBFF);
-  static const Color secondaryColor = Color(0xFFFFE76B);
-  static const Color secondaryColorSurface = Color(0xFFFFFBE7);
+  static const Color primaryColor = Color(0xFF8B4513);
+  static const Color primaryColorSurface = Color(0xFFF5F5DC);
+  static const Color secondaryColor = Color(0xFFCD853F);
+  static const Color secondaryColorSurface = Color(0xFFFAEBD7);
+  static const Color thirdColor = Color(0xFF8B5E3C);
+  static const Color thirdColorSurface = Color(0xFFE8DAB5);
+
 
   static const MaterialColor black = MaterialColor(0xff282828, color);
   static const Map<int, Color> color = {
