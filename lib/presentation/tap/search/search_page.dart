@@ -89,82 +89,85 @@ class _SearchPage extends State<SearchPage> {
                   itemBuilder: (context, index) {
                     final book = model.book[index];
                     return GridTile(
-                      child: GestureDetector(
-                        onTap: () {
-
-                          context.go('/writing',extra: book);
-
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                                color: Colors.blueGrey[100],
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Image.network(
-                                        book.thumbnail,
-                                        fit: BoxFit.cover,
-                                        height: 80,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              book.title.length < 14
-                                                  ? book.title
-                                                  : book.title.substring(0, 14),
-                                              style: TextStyle(fontSize: 20),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis),
-                                          Text(book.authors.toString().length <
-                                                  23
-                                              ? book.authors.toString()
-                                              : book.authors
-                                                  .toString()
-                                                  .substring(0, 23))
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Text(DateFormat('yyyy-MM-dd')
-                                      .format(book.datetime)),
-                                  SizedBox(height: 16),
-                                  Text(
-                                    book.contents.isEmpty
-                                        ? '내용없음'
-                                        : book.contents,
-                                    style: TextStyle(fontSize: 20),
-                                    maxLines: 6,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Spacer(),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.done),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Icon(Icons.favorite_outline),
-                                    ],
-                                  )
-                                ],
-                              ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              color: Colors.blueGrey[100],
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.network(
+                                      book.thumbnail,
+                                      fit: BoxFit.cover,
+                                      height: 80,
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            book.title.length < 14
+                                                ? book.title
+                                                : book.title.substring(0, 14),
+                                            style: TextStyle(fontSize: 20),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis),
+                                        Text(book.authors.toString().length < 23
+                                            ? book.authors.toString()
+                                            : book.authors
+                                                .toString()
+                                                .substring(0, 23))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Text(DateFormat('yyyy-MM-dd')
+                                    .format(book.datetime)),
+                                SizedBox(height: 16),
+                                Text(
+                                  book.contents.isEmpty
+                                      ? '내용없음'
+                                      : book.contents,
+                                  style: TextStyle(fontSize: 20),
+                                  maxLines: 6,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Spacer(),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.comment),
+                                      onPressed: () {
+                                        context.go('/writing', extra: book);
+                                      },
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.favorite_outline),
+                                      onPressed: () {},
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.bookmark),
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         ),
