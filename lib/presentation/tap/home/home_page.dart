@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../../../core/provider/user_provider.dart';
 import 'home_page_view_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,14 +19,19 @@ class _HomePageState extends State<HomePage> {
   late TextEditingController _controller;
   String query = '';
 
+
   void updateUi() => setState(() {});
 
+  @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
     widget.homePageViewModel.addListener(updateUi);
-  }
 
+    final userProvider = context.read<UserProvider>();
+    userProvider.fetchUserInfo();
+  }
+  @override
   void dispose() {
     _controller.dispose();
     widget.homePageViewModel.removeListener(updateUi);
