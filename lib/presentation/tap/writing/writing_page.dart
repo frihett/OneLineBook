@@ -55,9 +55,11 @@ class _WritingPageState extends State<WritingPage> {
           IconButton(
             iconSize: 32,
             icon: Icon(Icons.done),
-            onPressed: () {
+            onPressed: () async{
               if (model.selectedBook != null) {
-                model.uploadPost(model.selectedBook!, _controller.text);
+                await model.uploadPost(model.selectedBook!, _controller.text);
+
+                context.go('/reviewSearching');
               }
             },
           ),
@@ -70,14 +72,6 @@ class _WritingPageState extends State<WritingPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      context.go('/bookSearching');
-                    },
-                    child: Text('책 검색 하러가기'),
-                  ),
-                ),
                 SizedBox(
                   height: 16,
                 ),
@@ -110,16 +104,18 @@ class _WritingPageState extends State<WritingPage> {
                                   ),
                                 ),
                         ),
+
                         SizedBox(
                           height: 24,
                         )
                       ],
                     )),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  '한문장으로만 리뷰를 써보세요',
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '한문장으로만 리뷰를 써보세요',
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.all(16.0),

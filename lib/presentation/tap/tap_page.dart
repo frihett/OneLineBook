@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:untitled9/data/repository/book_repository_impl.dart';
-import 'package:untitled9/presentation/tap/ranking/raking_page.dart';
-import 'package:untitled9/presentation/tap/review_search/review_page.dart';
-import 'package:untitled9/presentation/tap/review_search/review_page_view_model.dart';
-import 'package:untitled9/presentation/tap/writing/writing_page_view_model.dart';
-
-import 'account/account_page.dart';
-import 'account/account_page_view_model.dart';
-import 'home/home_page.dart';
-import 'home/home_page_view_model.dart';
+import 'package:go_router/go_router.dart';
 
 class TapPage extends StatefulWidget {
-  const TapPage({super.key});
+  final Widget child;
+
+  const TapPage({super.key, required this.child});
 
   @override
   State<TapPage> createState() => _TapPageState();
@@ -20,30 +12,12 @@ class TapPage extends StatefulWidget {
 
 class _TapPageState extends State<TapPage> {
   int _currentIndex = 0;
-  final _pages = [
-    HomePage(
-      homePageViewModel:
-          HomePageViewModel(bookRepository: BookRepositoryImpl()),
-    ),
-    ChangeNotifierProvider(
-      create: (context) => ReviewPageViewModel(),
-      child: ReviewPage(),
-    ),
-    ChangeNotifierProvider(
-      create: (context) => WritingPageViewModel(),
-      child: RankingPage(),
-    ),
-    RankingPage(),
-    ChangeNotifierProvider(
-      create: (context) => AccountViewModel(),
-      child: AccountPage(),
-    )
-  ];
+  final _locations = ['/home', '/reviewSearching', '/raking', '/account'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
@@ -51,6 +25,7 @@ class _TapPageState extends State<TapPage> {
           setState(() {
             _currentIndex = index;
           });
+          context.go(_locations[index]);
         },
         items: const [
           BottomNavigationBarItem(

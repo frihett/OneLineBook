@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     bool isLoggedIn = FirebaseAuth.instance.currentUser != null;
     if (mounted) {
-      context.go(isLoggedIn ? '/tapPage' : '/login');
+      context.go(isLoggedIn ? '/home' : '/login');
     }
   }
 
