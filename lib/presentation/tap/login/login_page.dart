@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled9/core/provider/user_provider.dart';
 import 'package:untitled9/main.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,8 +20,8 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    signInWithGoogle(context);
+                  onTap: () async {
+                    await signInWithGoogle(context);
                   },
                   child: Card(
                     margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -68,7 +70,6 @@ class LoginPage extends StatelessWidget {
     return await FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((value) {
-      print(value.user?.email);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => MyApp(),
       ));
