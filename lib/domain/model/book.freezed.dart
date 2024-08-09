@@ -22,11 +22,10 @@ Book _$BookFromJson(Map<String, dynamic> json) {
 mixin _$Book {
   String get title => throw _privateConstructorUsedError;
   List<String> get authors => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
-  DateTime get datetime => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String get isbn => throw _privateConstructorUsedError;
   String get publisher => throw _privateConstructorUsedError;
-  String get thumbnail => throw _privateConstructorUsedError;
+  String get bookImageUrl => throw _privateConstructorUsedError;
   List<String> get translators => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,11 +41,10 @@ abstract class $BookCopyWith<$Res> {
   $Res call(
       {String title,
       List<String> authors,
-      String contents,
-      DateTime datetime,
+      String description,
       String isbn,
       String publisher,
-      String thumbnail,
+      String bookImageUrl,
       List<String> translators});
 }
 
@@ -65,11 +63,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
   $Res call({
     Object? title = null,
     Object? authors = null,
-    Object? contents = null,
-    Object? datetime = null,
+    Object? description = null,
     Object? isbn = null,
     Object? publisher = null,
-    Object? thumbnail = null,
+    Object? bookImageUrl = null,
     Object? translators = null,
   }) {
     return _then(_value.copyWith(
@@ -81,14 +78,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      contents: null == contents
-          ? _value.contents
-          : contents // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
-      datetime: null == datetime
-          ? _value.datetime
-          : datetime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       isbn: null == isbn
           ? _value.isbn
           : isbn // ignore: cast_nullable_to_non_nullable
@@ -97,9 +90,9 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.publisher
           : publisher // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
+      bookImageUrl: null == bookImageUrl
+          ? _value.bookImageUrl
+          : bookImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       translators: null == translators
           ? _value.translators
@@ -119,11 +112,10 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
   $Res call(
       {String title,
       List<String> authors,
-      String contents,
-      DateTime datetime,
+      String description,
       String isbn,
       String publisher,
-      String thumbnail,
+      String bookImageUrl,
       List<String> translators});
 }
 
@@ -139,11 +131,10 @@ class __$$BookImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? authors = null,
-    Object? contents = null,
-    Object? datetime = null,
+    Object? description = null,
     Object? isbn = null,
     Object? publisher = null,
-    Object? thumbnail = null,
+    Object? bookImageUrl = null,
     Object? translators = null,
   }) {
     return _then(_$BookImpl(
@@ -155,14 +146,10 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      contents: null == contents
-          ? _value.contents
-          : contents // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
-      datetime: null == datetime
-          ? _value.datetime
-          : datetime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       isbn: null == isbn
           ? _value.isbn
           : isbn // ignore: cast_nullable_to_non_nullable
@@ -171,9 +158,9 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.publisher
           : publisher // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
+      bookImageUrl: null == bookImageUrl
+          ? _value.bookImageUrl
+          : bookImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       translators: null == translators
           ? _value._translators
@@ -189,11 +176,10 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
   const _$BookImpl(
       {required this.title,
       required final List<String> authors,
-      required this.contents,
-      required this.datetime,
+      required this.description,
       required this.isbn,
       required this.publisher,
-      required this.thumbnail,
+      required this.bookImageUrl,
       required final List<String> translators})
       : _authors = authors,
         _translators = translators;
@@ -212,15 +198,13 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
   }
 
   @override
-  final String contents;
-  @override
-  final DateTime datetime;
+  final String description;
   @override
   final String isbn;
   @override
   final String publisher;
   @override
-  final String thumbnail;
+  final String bookImageUrl;
   final List<String> _translators;
   @override
   List<String> get translators {
@@ -231,7 +215,7 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Book(title: $title, authors: $authors, contents: $contents, datetime: $datetime, isbn: $isbn, publisher: $publisher, thumbnail: $thumbnail, translators: $translators)';
+    return 'Book(title: $title, authors: $authors, description: $description, isbn: $isbn, publisher: $publisher, bookImageUrl: $bookImageUrl, translators: $translators)';
   }
 
   @override
@@ -241,11 +225,10 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
       ..add(DiagnosticsProperty('type', 'Book'))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('authors', authors))
-      ..add(DiagnosticsProperty('contents', contents))
-      ..add(DiagnosticsProperty('datetime', datetime))
+      ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('isbn', isbn))
       ..add(DiagnosticsProperty('publisher', publisher))
-      ..add(DiagnosticsProperty('thumbnail', thumbnail))
+      ..add(DiagnosticsProperty('bookImageUrl', bookImageUrl))
       ..add(DiagnosticsProperty('translators', translators));
   }
 
@@ -256,15 +239,13 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
             other is _$BookImpl &&
             (identical(other.title, title) || other.title == title) &&
             const DeepCollectionEquality().equals(other._authors, _authors) &&
-            (identical(other.contents, contents) ||
-                other.contents == contents) &&
-            (identical(other.datetime, datetime) ||
-                other.datetime == datetime) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.isbn, isbn) || other.isbn == isbn) &&
             (identical(other.publisher, publisher) ||
                 other.publisher == publisher) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
+            (identical(other.bookImageUrl, bookImageUrl) ||
+                other.bookImageUrl == bookImageUrl) &&
             const DeepCollectionEquality()
                 .equals(other._translators, _translators));
   }
@@ -275,11 +256,10 @@ class _$BookImpl with DiagnosticableTreeMixin implements _Book {
       runtimeType,
       title,
       const DeepCollectionEquality().hash(_authors),
-      contents,
-      datetime,
+      description,
       isbn,
       publisher,
-      thumbnail,
+      bookImageUrl,
       const DeepCollectionEquality().hash(_translators));
 
   @JsonKey(ignore: true)
@@ -300,11 +280,10 @@ abstract class _Book implements Book {
   const factory _Book(
       {required final String title,
       required final List<String> authors,
-      required final String contents,
-      required final DateTime datetime,
+      required final String description,
       required final String isbn,
       required final String publisher,
-      required final String thumbnail,
+      required final String bookImageUrl,
       required final List<String> translators}) = _$BookImpl;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
@@ -314,15 +293,13 @@ abstract class _Book implements Book {
   @override
   List<String> get authors;
   @override
-  String get contents;
-  @override
-  DateTime get datetime;
+  String get description;
   @override
   String get isbn;
   @override
   String get publisher;
   @override
-  String get thumbnail;
+  String get bookImageUrl;
   @override
   List<String> get translators;
   @override
