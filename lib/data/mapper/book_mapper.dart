@@ -6,12 +6,10 @@ extension ToBook on BookInfoDto {
     return Book(
       title: title ?? '',
       authors: authors ?? [''],
-      contents: contents ?? '',
-      datetime:
-          datetime != null ? DateTime.parse(datetime!) : DateTime(1970, 1, 1),
+      description: contents ?? '',
       isbn: isbn ?? '',
       publisher: publisher ?? '',
-      thumbnail: thumbnail ?? '',
+      bookImageUrl: thumbnail ?? '',
       translators: translators ?? [''],
     );
   }
