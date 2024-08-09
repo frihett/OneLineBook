@@ -1,5 +1,5 @@
 import '../model/book.dart';
 
 abstract interface class BookRepository {
-  Future<List<Book>> getBookList(String query);
+  Future<List<Book>> getBookList({required String query});
 }

@@ -7,7 +7,7 @@ class BookRepositoryImpl implements BookRepository {
   final BookApi _api = BookApi();
 
   @override
-  Future<List<Book>> getBookList(String query) {
-    return _api.getBook(query);
+  Future<List<Book>> getBookList({required String query}) {
+    return _api.getBook(query: query);
   }
 }
