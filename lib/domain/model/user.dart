@@ -16,6 +16,7 @@ class User with _$User {
     required String profilePictureUrl,
     List<Book>? currentReadingBookList,
     List<Review>? likedReviewList,
+    List<Review>? reviewList,
     required String createAt,
     String? updateAt,
   }) = _User;
