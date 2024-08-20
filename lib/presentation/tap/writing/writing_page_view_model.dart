@@ -1,12 +1,24 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:untitled9/domain/model/review.dart';
+import 'package:untitled9/domain/use_case/add_users_review_use_case.dart';
+import 'package:untitled9/domain/use_case/create_review_use_case.dart';
 
 import '../../../domain/model/book.dart';
-import '../../../domain/model/post.dart';
+import '../../../domain/use_case/get_review_use_case.dart';
 
 class WritingPageViewModel with ChangeNotifier {
   Book? _selectedBook;
+  final CreateReviewUseCase _createReviewUseCase;
+  final AddUsersReviewUseCase _addUsersReviewUseCase;
+  final GetReviewUseCase _getReviewUseCase;
+
+  WritingPageViewModel({
+    required GetReviewUseCase getReviewUseCase,
+    required AddUsersReviewUseCase addUsersReviewUseCase,
+    required CreateReviewUseCase createReviewUseCase,
+  })  : _createReviewUseCase = createReviewUseCase,
+        _addUsersReviewUseCase = addUsersReviewUseCase,
+        _getReviewUseCase = getReviewUseCase;
 
   Book? get selectedBook => _selectedBook;
 
@@ -15,29 +27,27 @@ class WritingPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> uploadPost(Book book, String review) async {
-    final postsRef =
-        FirebaseFirestore.instance.collection('posts').withConverter<Post>(
-              fromFirestore: (snapshot, _) => Post.fromJson(snapshot.data()!),
-              toFirestore: (post, _) => post.toJson(),
-            );
-
-    final newPostRef = postsRef.doc();
-
-    newPostRef.set(
-      Post(
-          id: newPostRef.id,
-          userId: FirebaseAuth.instance.currentUser?.uid ?? '',
-          title: book.title,
-          dateTime: DateTime.now(),
-          imageUrl: book.thumbnail,
-          content: book.contents,
-          review: review,
-          likes: 0,
-          likedUserIds: [],
-
-      ),
+  // 파이어스토어에 리뷰 추가, 유저에 리뷰리스트에 추가
+  Future<void> uploadReview(
+      {required Book book,
+      required String content,
+      required String userId}) async {
+    final review = Review(
+      bookId: book.isbn,
+      book: book,
+      content: content,
+      createdAt: DateTime.now().microsecondsSinceEpoch.toString(),
+      userId: userId,
     );
+    print(review);
+    try {
+      final updatedReview = await _createReviewUseCase.execute(review: review);
+
+      await _addUsersReviewUseCase.execute(
+          userId: userId, review: updatedReview!);
+    } catch (e) {
+      print('Error uploading review: $e');
+    }
   }
 
 }
