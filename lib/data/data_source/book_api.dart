@@ -6,16 +6,16 @@ import '../../domain/model/book.dart';
 import '../dto/BookInfoDto.dart';
 
 class BookApi {
-  Future<List<Book>> getBook({required String query}) async {
-    var url = 'https://dapi.kakao.com/v3/search/book';
-    var apiKey = '1934bda87c8f2d04588a246af4df2040';
+  static const _baseUrl = 'https://dapi.kakao.com/v3/search/book';
+  static const apiKey = '1934bda87c8f2d04588a246af4df2040';
 
-    var response = await http.get(
-      Uri.parse('$url?query=$query'),
-      headers: {
-        'Authorization': 'KakaoAK $apiKey',
-      },
-    );
+  Future<List<Book>> getBook({required String query}) async {
+    final url = Uri.parse('$_baseUrl?query=$query');
+    final headers = {
+      'Authorization': 'KakaoAK $apiKey',
+    };
+
+    final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
       final map = jsonDecode(response.body);
