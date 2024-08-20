@@ -7,5 +7,5 @@ class AccountViewModel with ChangeNotifier {
   AccountViewModel() {}
 
 
-  final bool get isLoading => _isLoading;
+   bool get isLoading => _isLoading;
 }
