@@ -1,7 +1,9 @@
 import 'package:untitled9/data/data_source/liked_review_data_source.dart';
 import 'package:untitled9/domain/model/liked_review.dart';
 
-class LikedReviewRepositoryImpl {
+import '../../domain/repository/liked_review_repository.dart';
+
+class LikedReviewRepositoryImpl implements LikedReviewRepository{
   final LikedReviewDataSource _likedReviewDataSource;
 
   const LikedReviewRepositoryImpl({
