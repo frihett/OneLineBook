@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../login/login_page.dart';
-import '../tap_page.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled9/core/provider/user_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,16 +13,23 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void initState() {
-    super.initState();
-    checkLoginStatus();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _checkLoginStatus();
   }
 
-  void checkLoginStatus() async {
+  void _checkLoginStatus() async {
     await Future.delayed(Duration(seconds: 2));
 
     bool isLoggedIn = FirebaseAuth.instance.currentUser != null;
+
     if (mounted) {
+      if (isLoggedIn) {
+        final userProvider = context.read<UserProvider>();
+        final userId = userProvider.getUserId();
+        final fetchedUser = await userProvider.fetchUser(userId);
+        userProvider.setUser(fetchedUser!);
+      }
       context.go(isLoggedIn ? '/home' : '/login');
     }
   }
