@@ -1,17 +1,18 @@
 import 'package:untitled9/data/data_source/review_data_source.dart';
 
 import '../../domain/model/review.dart';
+import '../../domain/repository/review_repository.dart';
 
-class ReviewRepositoryImpl {
+class ReviewRepositoryImpl implements ReviewRepository {
   final ReviewDataSource _reviewDataSource;
 
   const ReviewRepositoryImpl({
     required ReviewDataSource reviewDataSource,
   }) : _reviewDataSource = reviewDataSource;
 
-  Future<void> createReview({required Review review}) async {
+  Future<Review?> createReview({required Review review}) async {
     try {
-      await _reviewDataSource.createReview(review: review);
+      return await _reviewDataSource.createReview(review: review);
     } catch (e) {
       throw Exception('fail : $e');
     }
@@ -25,19 +26,21 @@ class ReviewRepositoryImpl {
     }
   }
 
-  Future<void> updateReview({required Review review}) async {
-    try {
-      await _reviewDataSource.updateReview(review: review);
-    } catch (e) {
-      throw Exception('fail : $e');
-    }
-  }
-
   Future<void> deleteReview({required String reviewId}) async {
     try {
       await _reviewDataSource.deleteReview(reviewId: reviewId);
     } catch (e) {
       throw Exception('fail : $e');
+    }
+  }
+
+  Future<void> editReview(
+      {required Review review, required String reviewContent}) async {
+    try {
+      await _reviewDataSource.editReview(
+          review: review, reviewContent: reviewContent);
+    } catch (e) {
+      throw Exception('review Repository editReview fail : $e');
     }
   }
 }
