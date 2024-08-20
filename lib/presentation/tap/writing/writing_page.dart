@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled9/core/provider/user_provider.dart';
 import 'package:untitled9/presentation/tap/writing/writing_page_view_model.dart';
 
 import '../../../domain/model/book.dart';
@@ -42,8 +43,10 @@ class _WritingPageState extends State<WritingPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<WritingPageViewModel>();
-
+    final userProvider = context.watch<UserProvider>();
+    final userId = userProvider.user?.userId;
     final _controller = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -55,9 +58,13 @@ class _WritingPageState extends State<WritingPage> {
           IconButton(
             iconSize: 32,
             icon: Icon(Icons.done),
-            onPressed: () async{
+            onPressed: () async {
               if (model.selectedBook != null) {
-                await model.uploadPost(model.selectedBook!, _controller.text);
+                await model.uploadReview(
+                  book: model.selectedBook!,
+                  content: _controller.text,
+                  userId: userId!,
+                );
 
                 context.go('/reviewSearching');
               }
@@ -93,24 +100,22 @@ class _WritingPageState extends State<WritingPage> {
                               : Text('${model.selectedBook?.title}'),
                         ),
                         Center(
-                          child: model.selectedBook?.thumbnail == null
+                          child: model.selectedBook?.bookImageUrl == null
                               ? Container(height: 300, child: Text('책을 골라주세요 '))
                               : Container(
                                   child: Image.network(
-                                    model.selectedBook?.thumbnail ??
+                                    model.selectedBook?.bookImageUrl ??
                                         'https://image.aladin.co.kr/product/34075/65/cover500/k542931578_1.jpg',
                                     fit: BoxFit.cover,
                                     height: 300,
                                   ),
                                 ),
                         ),
-
                         SizedBox(
                           height: 24,
                         )
                       ],
                     )),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
