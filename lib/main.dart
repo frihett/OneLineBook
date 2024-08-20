@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled9/config/ui_style/ui_style.dart';
-import 'package:untitled9/presentation/tap/splash/splash_page.dart';
+import 'package:untitled9/data/data_source/user_data_source.dart';
+import 'package:untitled9/data/repository/user_repository_impl.dart';
+import 'package:untitled9/domain/use_case/create_user_use_case.dart';
 import 'config/router/router.dart';
 import 'core/provider/user_provider.dart';
+import 'domain/use_case/get_user_use_case.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -16,7 +18,14 @@ Future<void> main() async {
   );
 
   runApp(ChangeNotifierProvider(
-      create: (context) => UserProvider(), child: MyApp()));
+      create: (context) => UserProvider(
+          getUserUseCase: GetUserUseCase(
+              userRepository:
+                  UserRepositoryImpl(userDataSource: UserDataSource())),
+          createUserUseCase: CreateUserUseCase(
+              userRepository:
+                  UserRepositoryImpl(userDataSource: UserDataSource()))),
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
