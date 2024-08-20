@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled9/core/provider/user_provider.dart';
 import 'package:untitled9/presentation/tap/search/search_page_view_model.dart';
 
 class SearchPage extends StatefulWidget {
@@ -19,8 +20,8 @@ class _SearchPage extends State<SearchPage> {
 
   void initState() {
     super.initState();
+
     _controller = TextEditingController();
-    final model = context.read<SearchPageViewModel>();
   }
 
   void dispose() {
@@ -31,7 +32,7 @@ class _SearchPage extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchPageViewModel>();
-
+    final userProvider = context.watch<UserProvider>();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -105,7 +106,7 @@ class _SearchPage extends State<SearchPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Image.network(
-                                      book.thumbnail,
+                                      book.bookImageUrl,
                                       fit: BoxFit.cover,
                                       height: 80,
                                     ),
@@ -135,12 +136,12 @@ class _SearchPage extends State<SearchPage> {
                                   ],
                                 ),
                                 Text(DateFormat('yyyy-MM-dd')
-                                    .format(book.datetime)),
+                                    .format(DateTime.now())),
                                 SizedBox(height: 16),
                                 Text(
-                                  book.contents.isEmpty
+                                  book.description.isEmpty
                                       ? '내용없음'
-                                      : book.contents,
+                                      : book.description,
                                   style: TextStyle(fontSize: 20),
                                   maxLines: 6,
                                   overflow: TextOverflow.ellipsis,
@@ -158,12 +159,12 @@ class _SearchPage extends State<SearchPage> {
                                       width: 8,
                                     ),
                                     IconButton(
-                                      icon: Icon(Icons.favorite_outline),
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
                                       icon: Icon(Icons.bookmark),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        model.addCurrentReadingBookList(
+                                            userId: userProvider.getUserId(),
+                                            book: book);
+                                      },
                                     ),
                                   ],
                                 )
