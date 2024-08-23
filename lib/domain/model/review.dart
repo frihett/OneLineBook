@@ -14,6 +14,8 @@ class Review with _$Review {
       required Book book,
       required String content,
       required String createdAt,
+      required int likes,
+      List<String>? likedByUserId,
       String? updatedAt}) = _Review;
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);

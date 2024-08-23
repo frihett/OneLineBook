@@ -26,6 +26,8 @@ mixin _$Review {
   Book get book => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
+  int get likes => throw _privateConstructorUsedError;
+  List<String>? get likedByUserId => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,6 +47,8 @@ abstract class $ReviewCopyWith<$Res> {
       Book book,
       String content,
       String createdAt,
+      int likes,
+      List<String>? likedByUserId,
       String? updatedAt});
 
   $BookCopyWith<$Res> get book;
@@ -69,6 +73,8 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
     Object? book = null,
     Object? content = null,
     Object? createdAt = null,
+    Object? likes = null,
+    Object? likedByUserId = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -96,6 +102,14 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int,
+      likedByUserId: freezed == likedByUserId
+          ? _value.likedByUserId
+          : likedByUserId // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -126,6 +140,8 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
       Book book,
       String content,
       String createdAt,
+      int likes,
+      List<String>? likedByUserId,
       String? updatedAt});
 
   @override
@@ -149,6 +165,8 @@ class __$$ReviewImplCopyWithImpl<$Res>
     Object? book = null,
     Object? content = null,
     Object? createdAt = null,
+    Object? likes = null,
+    Object? likedByUserId = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$ReviewImpl(
@@ -176,6 +194,14 @@ class __$$ReviewImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int,
+      likedByUserId: freezed == likedByUserId
+          ? _value._likedByUserId
+          : likedByUserId // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -194,7 +220,10 @@ class _$ReviewImpl implements _Review {
       required this.book,
       required this.content,
       required this.createdAt,
-      this.updatedAt});
+      required this.likes,
+      final List<String>? likedByUserId,
+      this.updatedAt})
+      : _likedByUserId = likedByUserId;
 
   factory _$ReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReviewImplFromJson(json);
@@ -212,11 +241,23 @@ class _$ReviewImpl implements _Review {
   @override
   final String createdAt;
   @override
+  final int likes;
+  final List<String>? _likedByUserId;
+  @override
+  List<String>? get likedByUserId {
+    final value = _likedByUserId;
+    if (value == null) return null;
+    if (_likedByUserId is EqualUnmodifiableListView) return _likedByUserId;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   final String? updatedAt;
 
   @override
   String toString() {
-    return 'Review(reviewId: $reviewId, userId: $userId, bookId: $bookId, book: $book, content: $content, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Review(reviewId: $reviewId, userId: $userId, bookId: $bookId, book: $book, content: $content, createdAt: $createdAt, likes: $likes, likedByUserId: $likedByUserId, updatedAt: $updatedAt)';
   }
 
   @override
@@ -232,14 +273,26 @@ class _$ReviewImpl implements _Review {
             (identical(other.content, content) || other.content == content) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.likes, likes) || other.likes == likes) &&
+            const DeepCollectionEquality()
+                .equals(other._likedByUserId, _likedByUserId) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, reviewId, userId, bookId, book,
-      content, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      reviewId,
+      userId,
+      bookId,
+      book,
+      content,
+      createdAt,
+      likes,
+      const DeepCollectionEquality().hash(_likedByUserId),
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -263,6 +316,8 @@ abstract class _Review implements Review {
       required final Book book,
       required final String content,
       required final String createdAt,
+      required final int likes,
+      final List<String>? likedByUserId,
       final String? updatedAt}) = _$ReviewImpl;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
@@ -279,6 +334,10 @@ abstract class _Review implements Review {
   String get content;
   @override
   String get createdAt;
+  @override
+  int get likes;
+  @override
+  List<String>? get likedByUserId;
   @override
   String? get updatedAt;
   @override
