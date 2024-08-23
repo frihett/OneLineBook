@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled9/presentation/tap/all_review/all_review_page_view_model.dart';
 
 import '../../../config/ui_style/ui_style.dart';
+import '../../../core/provider/user_provider.dart';
 import '../../../domain/model/review.dart';
 
 class AllReviewPage extends StatefulWidget {
@@ -14,6 +17,10 @@ class AllReviewPage extends StatefulWidget {
 class _AllReviewPageState extends State<AllReviewPage> {
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AllReviewPageViewModel>();
+    final userProvider = context.watch<UserProvider>();
+    final userId = userProvider.user?.userId;
+
     final Stream<QuerySnapshot<Review>> reviewStream =
         FirebaseFirestore.instance
             .collection('reviews')
@@ -108,8 +115,13 @@ class _AllReviewPageState extends State<AllReviewPage> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.heart_broken))
+                                          onPressed: () {
+                                            model.toggleLikeReview(
+                                                review: review,
+                                                userId: userId!);
+                                          },
+                                          icon: Icon(Icons.thumb_up),
+                                        color: review.likedByUserId?.contains(userId) ?? false ? Colors.blue : Colors.grey,)
                                     ],
                                   ),
                                 ],
