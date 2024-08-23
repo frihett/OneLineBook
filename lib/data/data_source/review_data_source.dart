@@ -53,4 +53,24 @@ class ReviewDataSource {
   Future<void> deleteReview({required String reviewId}) async {
     await _reviewCollectionRef.doc(reviewId).delete();
   }
+
+  Future<void> toggleLikeReview({required Review review,required String userId}) async{
+    // Null 체크 및 빈 리스트 초기화
+    final likedByUserId = review.likedByUserId ?? [];
+
+    if (likedByUserId.contains(userId)) {
+      // 이미 좋아요를 눌렀다면 좋아요 취소
+      await _reviewCollectionRef.doc(review.reviewId).update({
+        'likes': FieldValue.increment(-1),
+        'likedByUserId': FieldValue.arrayRemove([userId]),
+      });
+    } else {
+      // 좋아요 추가
+      await _reviewCollectionRef.doc(review.reviewId).update({
+        'likes': FieldValue.increment(1),
+        'likedByUserId': FieldValue.arrayUnion([userId]),
+      });
+    }
+  }
+
 }

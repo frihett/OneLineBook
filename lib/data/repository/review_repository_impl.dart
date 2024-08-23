@@ -43,4 +43,13 @@ class ReviewRepositoryImpl implements ReviewRepository {
       throw Exception('review Repository editReview fail : $e');
     }
   }
+
+  Future<void> toggleLikeReview(
+      {required Review review, required String userId}) async {
+    try {
+      await _reviewDataSource.toggleLikeReview(review: review, userId: userId);
+    } catch (e) {
+      throw Exception('review Repository toggleLikeReview fail : $e');
+    }
+  }
 }

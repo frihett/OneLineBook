@@ -10,5 +10,7 @@ abstract interface class ReviewRepository {
 
   Future<void> editReview(
       {required Review review, required String reviewContent});
+
+  Future<void> toggleLikeReview({required Review review,required String userId});
 }
 
