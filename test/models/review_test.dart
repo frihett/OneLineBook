@@ -20,7 +20,7 @@ final review = Review(
   bookId: 'book_01',
   book: book,
   content: 'Great book!',
-  createdAt: DateTime.now().toIso8601String(),
+  createdAt: DateTime.now().toIso8601String(), likes: 0,
 );
 
 void main() {

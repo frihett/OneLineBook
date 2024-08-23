@@ -160,9 +160,9 @@ class _SearchPage extends State<SearchPage> {
                                     ),
                                     IconButton(
                                       icon: Icon(Icons.bookmark),
-                                      onPressed: () {
+                                      onPressed: () async{
                                         model.addCurrentReadingBookList(
-                                            userId: userProvider.getUserId(),
+                                            userId: await userProvider.getUserId(),
                                             book: book);
                                       },
                                     ),

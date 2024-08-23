@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (mounted) {
       if (isLoggedIn) {
         final userProvider = context.read<UserProvider>();
-        final userId = userProvider.getUserId();
+        final userId = await userProvider.getUserId();
         final fetchedUser = await userProvider.fetchUser(userId);
         userProvider.setUser(fetchedUser!);
       }

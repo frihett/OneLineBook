@@ -168,7 +168,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                           if (newReviewContent != null &&
                                               newReviewContent.isNotEmpty) {
                                             model.editReview(
-                                              userId: userProvider.getUserId(),
+                                              userId: await userProvider.getUserId(),
                                               reviewContent: newReviewContent,
                                               // 새로 입력된 리뷰 내용 전달
                                               review: review,
