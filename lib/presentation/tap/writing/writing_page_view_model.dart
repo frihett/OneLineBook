@@ -33,21 +33,21 @@ class WritingPageViewModel with ChangeNotifier {
       required String content,
       required String userId}) async {
     final review = Review(
+      
       bookId: book.isbn,
       book: book,
       content: content,
       createdAt: DateTime.now().microsecondsSinceEpoch.toString(),
-      userId: userId,
+      userId: userId, likes: 0,
     );
-    print(review);
     try {
+      // 리뷰 생성
       final updatedReview = await _createReviewUseCase.execute(review: review);
-
+      // 유저에 리뷰 생성
       await _addUsersReviewUseCase.execute(
           userId: userId, review: updatedReview!);
     } catch (e) {
       print('Error uploading review: $e');
     }
   }
-
 }
