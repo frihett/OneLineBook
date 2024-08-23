@@ -14,6 +14,7 @@ import 'package:untitled9/domain/use_case/add_current_reading_book_use_case.dart
 import 'package:untitled9/domain/use_case/add_users_review_use_case.dart';
 import 'package:untitled9/domain/use_case/create_review_use_case.dart';
 import 'package:untitled9/domain/use_case/create_user_use_case.dart';
+import 'package:untitled9/domain/use_case/delete_Review_use_case.dart';
 import 'package:untitled9/domain/use_case/delete_current_reading_book_use_case.dart';
 import 'package:untitled9/domain/use_case/delete_review_to_user_use_case.dart';
 import 'package:untitled9/domain/use_case/edit_review_use_case.dart';
@@ -21,6 +22,7 @@ import 'package:untitled9/domain/use_case/get_review_use_case.dart';
 import 'package:untitled9/domain/use_case/get_user_use_case.dart';
 import 'package:untitled9/presentation/tap/account/account_page.dart';
 import 'package:untitled9/presentation/tap/account/account_page_view_model.dart';
+import 'package:untitled9/presentation/tap/all_review/all_review_page.dart';
 import 'package:untitled9/presentation/tap/home/home_page.dart';
 import 'package:untitled9/presentation/tap/home/home_page_view_model.dart';
 import 'package:untitled9/presentation/tap/login/login_page.dart';
@@ -76,6 +78,9 @@ final goRouter = GoRouter(
                           userRepository: UserRepositoryImpl(
                               userDataSource: UserDataSource()),
                           reviewRepository: ReviewRepositoryImpl(
+                              reviewDataSource: ReviewDataSource())),
+                      deleteReviewUseCase: DeleteReviewUseCase(
+                          reviewRepository: ReviewRepositoryImpl(
                               reviewDataSource: ReviewDataSource()))),
                   child: ReviewPage());
             }),
@@ -83,6 +88,11 @@ final goRouter = GoRouter(
             path: '/raking',
             builder: (context, state) {
               return RankingPage();
+            }),
+        GoRoute(
+            path: '/allReview',
+            builder: (context, state) {
+              return AllReviewPage();
             }),
         GoRoute(
             path: '/account',
