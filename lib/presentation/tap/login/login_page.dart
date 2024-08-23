@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                       userProvider.setUser(fetchedUser);
                     }
                     if (mounted) {
-                      context.go('home');
+                      context.go('/home');
                     }
                   },
                   child: Card(
