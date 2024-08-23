@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled9/data/mapper/book_mapper.dart';
 
@@ -6,8 +7,8 @@ import '../../domain/model/book.dart';
 import '../dto/BookInfoDto.dart';
 
 class BookApi {
-  static const _baseUrl = 'https://dapi.kakao.com/v3/search/book';
-  static const apiKey = '1934bda87c8f2d04588a246af4df2040';
+  final String _baseUrl = dotenv.get('KAKAO_BASE_URL');
+  final String apiKey = dotenv.get('KAKAO_API_KEY');
 
   Future<List<Book>> getBook({required String query}) async {
     final url = Uri.parse('$_baseUrl?query=$query');

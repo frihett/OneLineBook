@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled9/data/data_source/user_data_source.dart';
@@ -11,6 +12,8 @@ import 'domain/use_case/get_user_use_case.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: 'assets/config/.env');
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
