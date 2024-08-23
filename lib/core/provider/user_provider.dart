@@ -37,7 +37,7 @@ class UserProvider extends ChangeNotifier {
     return _getUserUseCase.execute(userId: userId);
   }
 
-  String getUserId() {
+  Future<String> getUserId() async{
     return auth.FirebaseAuth.instance.currentUser!.uid;
   }
 }
