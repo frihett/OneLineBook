@@ -20,9 +20,11 @@ import 'package:untitled9/domain/use_case/delete_review_to_user_use_case.dart';
 import 'package:untitled9/domain/use_case/edit_review_use_case.dart';
 import 'package:untitled9/domain/use_case/get_review_use_case.dart';
 import 'package:untitled9/domain/use_case/get_user_use_case.dart';
+import 'package:untitled9/domain/use_case/toggle_like_review_use_case.dart';
 import 'package:untitled9/presentation/tap/account/account_page.dart';
 import 'package:untitled9/presentation/tap/account/account_page_view_model.dart';
 import 'package:untitled9/presentation/tap/all_review/all_review_page.dart';
+import 'package:untitled9/presentation/tap/all_review/all_review_page_view_model.dart';
 import 'package:untitled9/presentation/tap/home/home_page.dart';
 import 'package:untitled9/presentation/tap/home/home_page_view_model.dart';
 import 'package:untitled9/presentation/tap/login/login_page.dart';
@@ -92,7 +94,13 @@ final goRouter = GoRouter(
         GoRoute(
             path: '/allReview',
             builder: (context, state) {
-              return AllReviewPage();
+              return ChangeNotifierProvider(
+                create: (context) => AllReviewPageViewModel(
+                    toggleLikeReviewUseCase: ToggleLikeReviewUseCase(
+                        reviewRepository: ReviewRepositoryImpl(
+                            reviewDataSource: ReviewDataSource()))),
+                child: AllReviewPage(),
+              );
             }),
         GoRoute(
             path: '/account',
