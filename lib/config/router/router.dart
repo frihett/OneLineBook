@@ -64,7 +64,18 @@ final goRouter = GoRouter(
                     deleteCurrentReadingBookUseCase:
                         DeleteCurrentReadingBookUseCase(
                             userRepository: UserRepositoryImpl(
-                                userDataSource: UserDataSource()))),
+                                userDataSource: UserDataSource())),
+                    deleteReviewToUserUseCase: DeleteReviewToUserUseCase(
+                        userRepository: UserRepositoryImpl(
+                            userDataSource: UserDataSource())),
+                    editReviewUseCase: EditReviewUseCase(
+                        userRepository: UserRepositoryImpl(
+                            userDataSource: UserDataSource()),
+                        reviewRepository: ReviewRepositoryImpl(
+                            reviewDataSource: ReviewDataSource())),
+                    deleteReviewUseCase: DeleteReviewUseCase(
+                        reviewRepository: ReviewRepositoryImpl(
+                            reviewDataSource: ReviewDataSource()))),
                 child: HomePage(),
               );
             }),
