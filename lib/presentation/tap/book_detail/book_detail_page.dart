@@ -87,6 +87,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         userId: userId,
                         book: widget.book,
                       );
+                      // GoRouter.of(context).pop();
+                      context.pop();
                     },
                     child: Text('책 추가하기'),
                   ),
