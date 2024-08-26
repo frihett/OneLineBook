@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled9/core/provider/user_provider.dart';
 import 'package:untitled9/presentation/tap/search/search_page_view_model.dart';
+import '../../../core/provider/user_provider.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({super.key});
@@ -15,18 +12,26 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPage extends State<SearchPage> {
-  late TextEditingController _controller;
+  TextEditingController? _controller;
+  FocusNode? _focusNode;
   String query = '';
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _focusNode = FocusNode();
+
+    // 자동으로 포커스를 설정
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode?.requestFocus();
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
+    _focusNode?.dispose();
     super.dispose();
   }
 
@@ -34,6 +39,7 @@ class _SearchPage extends State<SearchPage> {
   Widget build(BuildContext context) {
     final model = context.watch<SearchPageViewModel>();
     final userProvider = context.watch<UserProvider>();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -49,6 +55,7 @@ class _SearchPage extends State<SearchPage> {
                   width: 300,
                   child: TextFormField(
                     controller: _controller,
+                    focusNode: _focusNode,
                     onFieldSubmitted: (value) {
                       setState(() {
                         query = value;
@@ -91,7 +98,7 @@ class _SearchPage extends State<SearchPage> {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          color: Colors.blueGrey[100],
+                          color: Color(0xFFFFEBEE),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
@@ -102,10 +109,21 @@ class _SearchPage extends State<SearchPage> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network(
+                                  book.bookImageUrl.isNotEmpty
+                                      ? Image.network(
                                     book.bookImageUrl,
                                     fit: BoxFit.cover,
                                     height: 160,
+                                  )
+                                      : Container(
+                                    height: 160,
+                                    width: 120, // 대체 아이콘 크기
+                                    color: Colors.grey[300],
+                                    child: Icon(
+                                      Icons.image_not_supported,
+                                      size: 60,
+                                      color: Colors.grey[600],
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 8,
@@ -113,9 +131,9 @@ class _SearchPage extends State<SearchPage> {
                                   Expanded(
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           book.title.length < 14
@@ -129,14 +147,15 @@ class _SearchPage extends State<SearchPage> {
                                           book.authors.toString().length < 23
                                               ? book.authors.toString()
                                               : book.authors
-                                                  .toString()
-                                                  .substring(0, 23),
+                                              .toString()
+                                              .substring(0, 23),
                                         ),
+                                        SizedBox(height: 8),
                                         Text(
                                           book.description.isEmpty
                                               ? '내용없음'
                                               : book.description,
-                                          style: TextStyle(fontSize: 20),
+                                          style: TextStyle(fontSize: 16),
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -145,7 +164,6 @@ class _SearchPage extends State<SearchPage> {
                                   ),
                                 ],
                               ),
-
                             ],
                           ),
                         ),
