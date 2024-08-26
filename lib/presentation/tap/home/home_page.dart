@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                                     alignment: Alignment.bottomRight,
                                     child: IconButton(
                                       icon:
-                                          Icon(Icons.cancel, color: Colors.red),
+                                          Icon(Icons.delete, color: Colors.red),
                                       onPressed: () {
                                         model.deleteCurrentReadingBook(
                                             userId: userId!, book: book);
@@ -257,8 +257,8 @@ class _HomePageState extends State<HomePage> {
                                   flex: 3,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFF6EAF7),
-                                      borderRadius: BorderRadius.circular(8)),
+                                        color: Color(0xFFF6EAF7),
+                                        borderRadius: BorderRadius.circular(8)),
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 4),
                                     child: Align(
