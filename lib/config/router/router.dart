@@ -105,7 +105,10 @@ final goRouter = GoRouter(
                 create: (context) => RakingPageViewModel(
                     toggleLikeReviewUseCase: ToggleLikeReviewUseCase(
                         reviewRepository: ReviewRepositoryImpl(
-                            reviewDataSource: ReviewDataSource()))),
+                            reviewDataSource: ReviewDataSource())),
+                    getUserUseCase: GetUserUseCase(
+                        userRepository: UserRepositoryImpl(
+                            userDataSource: UserDataSource()))),
                 child: RakingPage(),
               );
             }),
