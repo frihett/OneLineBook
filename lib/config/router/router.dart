@@ -23,13 +23,13 @@ import 'package:untitled9/domain/use_case/get_user_use_case.dart';
 import 'package:untitled9/domain/use_case/toggle_like_review_use_case.dart';
 import 'package:untitled9/presentation/tap/account/account_page.dart';
 import 'package:untitled9/presentation/tap/account/account_page_view_model.dart';
-import 'package:untitled9/presentation/tap/all_review/all_review_page.dart';
-import 'package:untitled9/presentation/tap/all_review/all_review_page_view_model.dart';
+import 'package:untitled9/presentation/tap/all_review/raking_page.dart';
+import 'package:untitled9/presentation/tap/all_review/raking_page_view_model.dart';
+import 'package:untitled9/presentation/tap/book_detail/book_detail_page_view_model.dart';
 import 'package:untitled9/presentation/tap/home/home_page.dart';
 import 'package:untitled9/presentation/tap/home/home_page_view_model.dart';
 import 'package:untitled9/presentation/tap/login/login_page.dart';
 import 'package:untitled9/presentation/tap/login/login_page_view_model.dart';
-import 'package:untitled9/presentation/tap/ranking/raking_page.dart';
 import 'package:untitled9/presentation/tap/review_search/review_page.dart';
 import 'package:untitled9/presentation/tap/review_search/review_page_view_model.dart';
 import 'package:untitled9/presentation/tap/search/search_page.dart';
@@ -40,6 +40,7 @@ import 'package:untitled9/presentation/tap/writing/writing_page.dart';
 import 'package:untitled9/presentation/tap/writing/writing_page_view_model.dart';
 
 import '../../domain/model/book.dart';
+import '../../presentation/tap/book_detail/book_detail_page.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/splash',
@@ -100,17 +101,12 @@ final goRouter = GoRouter(
         GoRoute(
             path: '/raking',
             builder: (context, state) {
-              return RankingPage();
-            }),
-        GoRoute(
-            path: '/allReview',
-            builder: (context, state) {
               return ChangeNotifierProvider(
-                create: (context) => AllReviewPageViewModel(
+                create: (context) => RakingPageViewModel(
                     toggleLikeReviewUseCase: ToggleLikeReviewUseCase(
                         reviewRepository: ReviewRepositoryImpl(
                             reviewDataSource: ReviewDataSource()))),
-                child: AllReviewPage(),
+                child: RakingPage(),
               );
             }),
         GoRoute(
@@ -156,7 +152,19 @@ final goRouter = GoRouter(
                 book: book,
               ));
         }),
-
+    GoRoute(
+      path: '/book_detail',
+      builder: (context, state) {
+        final book = state.extra as Book;
+        return ChangeNotifierProvider(
+          create: (context) => BookDetailPageViewModel(
+              addCurrentReadingBookUseCase: AddCurrentReadingBookUseCase(
+                  userRepository:
+                      UserRepositoryImpl(userDataSource: UserDataSource()))),
+          child: BookDetailPage(book: book),
+        );
+      },
+    ),
     GoRoute(
         path: '/login',
         builder: (context, state) {
