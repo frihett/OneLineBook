@@ -36,7 +36,6 @@ class _WritingPageState extends State<WritingPage> {
   @override
   void dispose() {
     _controller.dispose();
-
     super.dispose();
   }
 
@@ -45,10 +44,10 @@ class _WritingPageState extends State<WritingPage> {
     final model = context.watch<WritingPageViewModel>();
     final userProvider = context.watch<UserProvider>();
     final userId = userProvider.user?.userId;
-    final _controller = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
+        title: Text('리뷰 작성'),
         actions: [
           IconButton(
             iconSize: 32,
@@ -74,79 +73,97 @@ class _WritingPageState extends State<WritingPage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 16,
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.brown.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                Container(
-                    decoration:
-                        BoxDecoration(color: Colors.brown.withOpacity(0.5)),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(DateFormat('yyyy-MM-dd')
-                                .format(DateTime.now())),
-                            Spacer(),
-                          ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.brown,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Center(
+                      child: Text(
+                        model.selectedBook?.title ?? '책 제목',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Center(
-                          child: model.selectedBook?.title == null
-                              ? Text('')
-                              : Text('${model.selectedBook?.title}'),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Center(
+                      child: model.selectedBook?.bookImageUrl == null
+                          ? Container(
+                        height: 200,
+                        width: 150,
+                        color: Colors.grey[200],
+                        child: Icon(
+                          Icons.image_not_supported,
+                          size: 100,
+                          color: Colors.grey[600],
                         ),
-                        Center(
-                          child: model.selectedBook?.bookImageUrl == null
-                              ? Container(height: 300, child: Text('책을 골라주세요 '))
-                              : Container(
-                                  child: Image.network(
-                                    model.selectedBook?.bookImageUrl ??
-                                        'https://image.aladin.co.kr/product/34075/65/cover500/k542931578_1.jpg',
-                                    fit: BoxFit.cover,
-                                    height: 300,
-                                  ),
-                                ),
-                        ),
-                        SizedBox(
-                          height: 24,
-                        )
-                      ],
-                    )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '한문장으로만 리뷰를 써보세요',
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1.0,
-                      )),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _controller,
-                        maxLines: null,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a review';
-                          }
-                          return null;
-                        },
                       )
-                    ],
+                          : Image.network(
+                        model.selectedBook!.bookImageUrl,
+                        fit: BoxFit.cover,
+                        height: 200,
+                        width: 150,
+                      ),
+                    ),
+                    SizedBox(height: 16,),
+                  ],
+                ),
+              ),
+              SizedBox(height: 24),
+              Text(
+                '한문장으로만 리뷰를 써보세요',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 16),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
                   ),
-                )
-              ],
-            ),
+                  color: Colors.white,
+                ),
+                child: TextFormField(
+                  controller: _controller,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: '리뷰를 입력하세요',
+                    hintStyle: TextStyle(color: Colors.grey[600]),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '리뷰를 입력해주세요';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
