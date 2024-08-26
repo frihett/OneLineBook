@@ -30,10 +30,33 @@ class _BookDetailPageState extends State<BookDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.network(
+              child: widget.book.bookImageUrl.isNotEmpty
+                  ? Image.network(
                 widget.book.bookImageUrl,
                 height: 250,
+
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  // 대체 이미지 표시
+                  return Container(
+                    color: Colors.grey[200],
+                    height: 250,
+                    child: Icon(
+                      Icons.image_not_supported,
+                      size: 100,
+                      color: Colors.grey[600],
+                    ),
+                  );
+                },
+              )
+                  : Container(
+                color: Colors.grey[200],
+                height: 250,
+                child: Icon(
+                  Icons.image_not_supported,
+                  size: 100,
+                  color: Colors.grey[600],
+                ),
               ),
             ),
             SizedBox(height: 16),
@@ -43,13 +66,13 @@ class _BookDetailPageState extends State<BookDetailPage> {
             ),
             SizedBox(height: 8),
             Text(
-              'Author: ${widget.book.authors}',
+              'Author: ${widget.book.authors.join(', ')}', // Join authors list for better formatting
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 16),
             Text(
               widget.book.description.isEmpty
-                  ? 'No description available'
+                  ? '내용없음'
                   : widget.book.description,
               style: TextStyle(fontSize: 16),
             ),
@@ -60,13 +83,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   child: ElevatedButton(
                     onPressed: () async {
                       final userId = await userProvider.getUserId();
-
                       model.addCurrentReadingBookList(
-                          userId: userId, book: widget.book);
+                        userId: userId,
+                        book: widget.book,
+                      );
                     },
-                    child: Text('읽고 있는 책에 추가하기'),
+                    child: Text('책 추가하기'),
                   ),
                 ),
+                SizedBox(width: 16), // Add spacing between buttons
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
