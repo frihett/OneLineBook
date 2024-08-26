@@ -1,29 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled9/presentation/tap/all_review/all_review_page_view_model.dart';
+import 'package:untitled9/presentation/tap/all_review/raking_page_view_model.dart';
 
 import '../../../config/ui_style/ui_style.dart';
 import '../../../core/provider/user_provider.dart';
 import '../../../domain/model/review.dart';
 
-class AllReviewPage extends StatefulWidget {
-  const AllReviewPage({super.key});
+class RakingPage extends StatefulWidget {
+  const RakingPage({super.key});
 
   @override
-  State<AllReviewPage> createState() => _AllReviewPageState();
+  State<RakingPage> createState() => _RakingPageState();
 }
 
-class _AllReviewPageState extends State<AllReviewPage> {
+class _RakingPageState extends State<RakingPage> {
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AllReviewPageViewModel>();
+    final model = context.watch<RakingPageViewModel>();
     final userProvider = context.watch<UserProvider>();
     final userId = userProvider.user?.userId;
 
-    final Stream<QuerySnapshot<Review>> reviewStream =
+    final Stream<QuerySnapshot<Review>> mostLikedReviewsStream =
         FirebaseFirestore.instance
             .collection('reviews')
+        .orderBy('likes',descending: true)
             .withConverter(
               fromFirestore: (snapshot, _) => Review.fromJson(snapshot.data()!),
               toFirestore: (review, _) => review.toJson(),
@@ -40,7 +41,7 @@ class _AllReviewPageState extends State<AllReviewPage> {
           children: [
             Expanded(
                 child: StreamBuilder(
-                    stream: reviewStream,
+                    stream: mostLikedReviewsStream,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());

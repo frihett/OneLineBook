@@ -3,10 +3,10 @@ import 'package:untitled9/domain/use_case/toggle_like_review_use_case.dart';
 
 import '../../../domain/model/review.dart';
 
-class AllReviewPageViewModel with ChangeNotifier {
+class RakingPageViewModel with ChangeNotifier {
   final ToggleLikeReviewUseCase _toggleLikeReviewUseCase;
 
-  AllReviewPageViewModel({
+  RakingPageViewModel({
     required ToggleLikeReviewUseCase toggleLikeReviewUseCase,
   }) : _toggleLikeReviewUseCase = toggleLikeReviewUseCase;
 
