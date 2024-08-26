@@ -31,170 +31,164 @@ class _ReviewPageState extends State<ReviewPage> {
         .snapshots();
 
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('나의 리뷰'),
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: StreamBuilder<DocumentSnapshot<User>>(
-                    stream: userStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('알 수 없는 에러');
-                      }
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('나의 리뷰'),
+      ),
+      body: SafeArea(
+        child: StreamBuilder<DocumentSnapshot<User>>(
+          stream: userStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text('알 수 없는 에러'));
+            }
 
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-                      final user = snapshot.data?.data();
-                      if (user == null || user.reviewList == null) {
-                        return const Text('No user data available');
-                      }
-                      return ListView.builder(
-                          padding: const EdgeInsets.all(16),
-                          itemCount: user.reviewList?.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final review = user.reviewList![index];
-                            return Container(
-                              margin: EdgeInsets.only(
-                                  right: 16, left: 16, bottom: 16, top: 16),
+            final user = snapshot.data?.data();
+            if (user == null || user.reviewList == null) {
+              return Center(child: Text('리뷰가 없습니다.'));
+            }
+
+            return ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: user.reviewList?.length,
+              itemBuilder: (BuildContext context, int index) {
+                final review = user.reviewList![index];
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  color: Color(0xFFF3E5F5),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 120,
                               decoration: BoxDecoration(
-                                  color: UiStyle.secondaryColorSurface,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  border: Border.all(
-                                    color: UiStyle.primaryColor,
-                                    width: 2.0,
-                                  )),
-                              padding: EdgeInsets.all(16),
-                              height: 300,
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: NetworkImage(review.book.bookImageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            Expanded(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  review.book.bookImageUrl.isEmpty == false
-                                      ? Image.network(
-                                          review.book.bookImageUrl,
-                                          height: 130,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Icon(
-                                          Icons.image_not_supported,
-                                          size: 130,
-                                        ),
                                   SizedBox(
                                     height: 8,
                                   ),
                                   Text(
                                     review.book.title,
-                                    // style: UiStyle.h1Style,
-                                    // style: UiStyle.h2Style,
-                                    // style: UiStyle.h3Style,
-                                    style: UiStyle.h4Style,
-                                    // style: UiStyle.bodyStyle,
-                                    // style: UiStyle.smallStyle,
-                                    // style: UiStyle.extraSmallStyle,
-
+                                    style: UiStyle.h4Style.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
+                                  SizedBox(height: 8),
                                   Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFF6EAF7),
+                                        borderRadius: BorderRadius.circular(8)),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
                                     child: Text(
                                       '한줄평 - ${review.content}',
                                       style: UiStyle.bodyStyle,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                        )),
-                                    width: 400,
-                                    height: 49,
-                                    padding: EdgeInsets.only(left: 8, right: 8),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.edit,
-                                        ),
-                                        onPressed: () async {
-                                          // 다이얼로그를 열어서 새로운 리뷰 내용을 입력받음
-                                          final newReviewContent =
-                                              await showDialog<String>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              String content = review
-                                                  .content; // 기존 리뷰 내용을 기본값으로 설정
-                                              return AlertDialog(
-                                                title: Text('리뷰 수정'),
-                                                content: TextField(
-                                                  onChanged: (value) {
-                                                    content =
-                                                        value; // 입력된 내용을 content에 저장
-                                                  },
-                                                  controller:
-                                                      TextEditingController(
-                                                          text: review.content),
-                                                  decoration: InputDecoration(
-                                                    hintText:
-                                                        "새로운 리뷰 내용을 입력하세요",
-                                                  ),
-                                                ),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    child: Text('취소'),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop(); // 다이얼로그 닫기
-                                                    },
-                                                  ),
-                                                  TextButton(
-                                                    child: Text('저장'),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop(
-                                                          content); // 입력된 내용을 반환하며 다이얼로그 닫기
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-
-                                          // 사용자가 새로운 내용을 입력하고 저장을 눌렀다면
-                                          if (newReviewContent != null &&
-                                              newReviewContent.isNotEmpty) {
-                                            model.editReview(
-                                              userId: await userProvider.getUserId(),
-                                              reviewContent: newReviewContent,
-                                              // 새로 입력된 리뷰 내용 전달
-                                              review: review,
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.delete,
-                                        ),
-                                        onPressed: () {
-                                          model.deleteReview(
-                                              userId: userId!, review: review);
-                                        },
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),
-                            );
-                          });
-                    }),
-              )
-            ],
-          ),
-        ));
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon:
+                                  Icon(Icons.edit, color: UiStyle.primaryColor),
+                              onPressed: () async {
+                                final newReviewContent =
+                                    await showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    String content = review.content;
+                                    return AlertDialog(
+                                      title: Text('리뷰 수정'),
+                                      content: TextField(
+                                        onChanged: (value) {
+                                          content = value;
+                                        },
+                                        controller: TextEditingController(
+                                            text: review.content),
+                                        decoration: InputDecoration(
+                                          hintText: "새로운 리뷰 내용을 입력하세요",
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text('취소'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text('저장'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop(content);
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (newReviewContent != null &&
+                                    newReviewContent.isNotEmpty) {
+                                  model.editReview(
+                                    userId: await userProvider.getUserId(),
+                                    reviewContent: newReviewContent,
+                                    review: review,
+                                  );
+                                }
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red),
+                              onPressed: () {
+                                model.deleteReview(
+                                    userId: userId!, review: review);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
   }
 }
