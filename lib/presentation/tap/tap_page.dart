@@ -33,11 +33,11 @@ class _TapPageState extends State<TapPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.remove_red_eye_rounded),
             label: 'MyReviews',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.people),
             label: 'Raking',
           ),
 
