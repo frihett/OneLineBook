@@ -19,6 +19,7 @@ class WritingPage extends StatefulWidget {
 
 class _WritingPageState extends State<WritingPage> {
   late TextEditingController _controller;
+  String? _errorText;
 
   @override
   void initState() {
@@ -31,12 +32,21 @@ class _WritingPageState extends State<WritingPage> {
     });
 
     _controller = TextEditingController();
+    _controller.addListener(_validateReviewLength);
   }
 
   @override
   void dispose() {
+    _controller.removeListener(_validateReviewLength);
     _controller.dispose();
     super.dispose();
+  }
+
+  void _validateReviewLength() {
+    final text = _controller.text;
+    setState(() {
+      _errorText = text.length > 80 ? '80자 이하로 써주세요' : null;
+    });
   }
 
   @override
@@ -58,7 +68,7 @@ class _WritingPageState extends State<WritingPage> {
             iconSize: 32,
             icon: Icon(Icons.done),
             onPressed: () async {
-              if (model.selectedBook != null) {
+              if (model.selectedBook != null && _errorText == null) {
                 await model.uploadReview(
                   book: model.selectedBook!,
                   content: _controller.text,
@@ -124,7 +134,7 @@ class _WritingPageState extends State<WritingPage> {
                         width: 150,
                       ),
                     ),
-                    SizedBox(height: 16,),
+                    SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -147,20 +157,34 @@ class _WritingPageState extends State<WritingPage> {
                   ),
                   color: Colors.white,
                 ),
-                child: TextFormField(
-                  controller: _controller,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '리뷰를 입력하세요',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '리뷰를 입력해주세요';
-                    }
-                    return null;
-                  },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: _controller,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '리뷰를 입력하세요',
+                        hintStyle: TextStyle(color: Colors.grey[600]),
+                        errorText: _errorText,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return '리뷰를 입력해주세요';
+                        }
+                        return null;
+                      },
+                    ),
+                    if (_errorText != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _errorText!,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ],
