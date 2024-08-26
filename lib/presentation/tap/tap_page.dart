@@ -12,7 +12,7 @@ class TapPage extends StatefulWidget {
 
 class _TapPageState extends State<TapPage> {
   int _currentIndex = 0;
-  final _locations = ['/home', '/reviewSearching','/allReview', '/raking', '/account'];
+  final _locations = ['/home', '/reviewSearching','/raking',  '/account'];
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +38,9 @@ class _TapPageState extends State<TapPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Reviews',
+            label: 'Raking',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.perm_media_rounded),
-            label: 'Ranking',
-          ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Account',
