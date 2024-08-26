@@ -33,11 +33,11 @@ class WritingPageViewModel with ChangeNotifier {
       required String content,
       required String userId}) async {
     final review = Review(
-      
+
       bookId: book.isbn,
       book: book,
       content: content,
-      createdAt: DateTime.now().microsecondsSinceEpoch.toString(),
+      createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
       userId: userId, likes: 0,
     );
     try {
