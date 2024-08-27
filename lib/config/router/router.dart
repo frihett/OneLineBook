@@ -28,6 +28,9 @@ import 'package:untitled9/presentation/tap/all_review/raking_page_view_model.dar
 import 'package:untitled9/presentation/tap/book_detail/book_detail_page_view_model.dart';
 import 'package:untitled9/presentation/tap/home/home_page.dart';
 import 'package:untitled9/presentation/tap/home/home_page_view_model.dart';
+import 'package:untitled9/presentation/tap/info_docs/license_page.dart';
+import 'package:untitled9/presentation/tap/info_docs/privacy_policy_page.dart';
+import 'package:untitled9/presentation/tap/info_docs/terms_and_conditions_page.dart';
 import 'package:untitled9/presentation/tap/login/login_page.dart';
 import 'package:untitled9/presentation/tap/login/login_page_view_model.dart';
 import 'package:untitled9/presentation/tap/review_search/review_page.dart';
@@ -49,6 +52,21 @@ final goRouter = GoRouter(
         path: '/splash',
         builder: (context, state) {
           return SplashScreen();
+        }),
+    GoRoute(
+        path: '/terms',
+        builder: (context, state) {
+          return TermsAndConditionsPage();
+        }),
+    GoRoute(
+        path: '/privacy',
+        builder: (context, state) {
+          return PrivacyPolicyPage();
+        }),
+    GoRoute(
+        path: '/license',
+        builder: (context, state) {
+          return LicensePage();
         }),
     ShellRoute(
       builder: (context, state, child) {
@@ -116,7 +134,9 @@ final goRouter = GoRouter(
             path: '/account',
             builder: (context, state) {
               return ChangeNotifierProvider(
-                  create: (context) => AccountViewModel(firebaseAuthRepository: FirebaseAuthRepositoryImpl(googleSignInDataSource: GoogleSignInDataSource())),
+                  create: (context) => AccountViewModel(
+                      firebaseAuthRepository: FirebaseAuthRepositoryImpl(
+                          googleSignInDataSource: GoogleSignInDataSource())),
                   child: AccountPage());
             }),
       ],
@@ -168,6 +188,7 @@ final goRouter = GoRouter(
         );
       },
     ),
+
     GoRoute(
         path: '/login',
         builder: (context, state) {
@@ -181,7 +202,9 @@ final goRouter = GoRouter(
                             userDataSource: UserDataSource())),
                     createUserUseCase: CreateUserUseCase(
                         userRepository: UserRepositoryImpl(
-                            userDataSource: UserDataSource()))), userRepository: UserRepositoryImpl(userDataSource: UserDataSource())),
+                            userDataSource: UserDataSource()))),
+                userRepository:
+                    UserRepositoryImpl(userDataSource: UserDataSource())),
             child: LoginPage(),
           );
         }),
