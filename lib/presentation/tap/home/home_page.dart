@@ -94,6 +94,8 @@ class _HomePageState extends State<HomePage> {
                     if (user == null || user.currentReadingBookList == null) {
                       return const Center(child: Text('현재 읽고있는 책이 없습니다.'));
                     }
+                    final sortedList = user.currentReadingBookList?.reversed.toList();
+
 
                     return CarouselSlider.builder(
                       options: CarouselOptions(
@@ -103,9 +105,9 @@ class _HomePageState extends State<HomePage> {
                         enableInfiniteScroll: false,
                         autoPlay: false,
                       ),
-                      itemCount: user.currentReadingBookList!.length,
+                      itemCount: sortedList!.length,
                       itemBuilder: (context, index, realIndex) {
-                        final book = user.currentReadingBookList![index];
+                        final book = sortedList[index];
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
