@@ -116,7 +116,7 @@ final goRouter = GoRouter(
             path: '/account',
             builder: (context, state) {
               return ChangeNotifierProvider(
-                  create: (context) => AccountViewModel(),
+                  create: (context) => AccountViewModel(firebaseAuthRepository: FirebaseAuthRepositoryImpl(googleSignInDataSource: GoogleSignInDataSource())),
                   child: AccountPage());
             }),
       ],
@@ -181,7 +181,7 @@ final goRouter = GoRouter(
                             userDataSource: UserDataSource())),
                     createUserUseCase: CreateUserUseCase(
                         userRepository: UserRepositoryImpl(
-                            userDataSource: UserDataSource())))),
+                            userDataSource: UserDataSource()))), userRepository: UserRepositoryImpl(userDataSource: UserDataSource())),
             child: LoginPage(),
           );
         }),
