@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class MyPageMenuBar extends StatelessWidget {
   final String menuBarName;
   final IconData menuBarIcon;
+  final Function()? onTapMenuBar;
 
   const MyPageMenuBar(
-      {super.key, required this.menuBarName, required this.menuBarIcon});
+      {super.key, required this.menuBarName, required this.menuBarIcon, this.onTapMenuBar});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,9 @@ class MyPageMenuBar extends StatelessWidget {
       children: [
 
         InkWell(
-          onTap: () {},
+          onTap: () {
+            onTapMenuBar!();
+          },
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
             padding: EdgeInsets.all(16.0),
