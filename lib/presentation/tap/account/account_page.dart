@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/provider/user_provider.dart';
-import '../components/my_page_menu_list.dart';
+import 'components/my_page_menu_list.dart';
 
 class AccountPage extends StatefulWidget {
   AccountPage({super.key});
