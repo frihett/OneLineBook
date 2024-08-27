@@ -24,11 +24,24 @@ class _MyPageMenuListState extends State<MyPageMenuList> {
         SizedBox(
           height: 20,
         ),
-        MyPageMenuBar(menuBarName: '계정설정', menuBarIcon: Icons.chevron_right),
-        MyPageMenuBar(menuBarName: '이용약관', menuBarIcon: Icons.chevron_right),
         MyPageMenuBar(
-            menuBarName: '계정정보 처리방침', menuBarIcon: Icons.chevron_right),
-        MyPageMenuBar(menuBarName: '라이센스', menuBarIcon: Icons.chevron_right),
+          menuBarName: '이용약관',
+          menuBarIcon: Icons.chevron_right,
+          onTapMenuBar: () {
+            context.push('/terms');
+          },
+        ),
+        MyPageMenuBar(
+          menuBarName: '계정정보 처리방침',
+          menuBarIcon: Icons.chevron_right,
+          onTapMenuBar: () {
+            context.push('/privacy');
+          },
+        ),
+        MyPageMenuBar(menuBarName: '라이센스', menuBarIcon: Icons.chevron_right
+        ,onTapMenuBar: (){
+          context.push('/license');
+          },),
         MyPageMenuBar(
           menuBarName: '로그아웃',
           menuBarIcon: Icons.account_circle_outlined,
@@ -37,9 +50,9 @@ class _MyPageMenuListState extends State<MyPageMenuList> {
             context.go('/login');
           },
         ),
-        MyPageMenuBar(
-            menuBarName: 'data2', menuBarIcon: Icons.account_circle_outlined),
       ],
     );
   }
+
+
 }
