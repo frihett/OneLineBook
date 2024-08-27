@@ -30,9 +30,9 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'userName': instance.userName,
       'email': instance.email,
       'profilePictureUrl': instance.profilePictureUrl,
-      'currentReadingBookList': instance.currentReadingBookList,
-      'likedReviewList': instance.likedReviewList,
-      'reviewList': instance.reviewList,
+          'currentReadingBookList': instance.currentReadingBookList?.map((e) => e.toJson()).toList(),
+          'likedReviewList': instance.likedReviewList?.map((e) => e.toJson()).toList(),
+          'reviewList': instance.reviewList?.map((e) => e.toJson()).toList(),
       'createAt': instance.createAt,
       'updateAt': instance.updateAt,
     };
