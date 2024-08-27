@@ -38,7 +38,7 @@ class _RakingPageState extends State<RakingPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: StreamBuilder<QuerySnapshot<Review>>(
             stream: mostLikedReviewsStream,
             builder: (context, snapshot) {
