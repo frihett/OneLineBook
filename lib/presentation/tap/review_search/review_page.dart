@@ -172,7 +172,7 @@ class _ReviewPageState extends State<ReviewPage> {
                               },
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete, color: Colors.red),
+                              icon: Icon(Icons.delete, color: Colors.red.withOpacity(0.7)),
                               onPressed: () {
                                 model.deleteReview(
                                     userId: userId!, review: review);
