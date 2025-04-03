@@ -34,40 +34,21 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text('1 Line Reviewer'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.push('/bookSearching');
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextFormField(
-                  onTap: () {
-                    context.push('/bookSearching');
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xffD7D7D7),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 20),
-                    hintText: '도서 검색하기',
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.only(left: 16.0, right: 10.0),
-                      child: Icon(Icons.search),
-                    ),
-                    hintStyle: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-              SizedBox(height: 24),
+              SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
@@ -94,8 +75,8 @@ class _HomePageState extends State<HomePage> {
                     if (user == null || user.currentReadingBookList == null) {
                       return const Center(child: Text('현재 읽고있는 책이 없습니다.'));
                     }
-                    final sortedList = user.currentReadingBookList?.reversed.toList();
-
+                    final sortedList =
+                        user.currentReadingBookList?.reversed.toList();
 
                     return CarouselSlider.builder(
                       options: CarouselOptions(
@@ -113,7 +94,8 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           elevation: 4,
-                          color: Color(0xFFFFEBEE),
+                          color: UiStyle.primaryColorSurface,
+                          // Color(0xFFFFEBEE),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
@@ -158,8 +140,8 @@ class _HomePageState extends State<HomePage> {
                                   child: Align(
                                     alignment: Alignment.bottomRight,
                                     child: IconButton(
-                                      icon:
-                                          Icon(Icons.delete, color: Colors.red.withOpacity(0.7)),
+                                      icon: Icon(Icons.delete,
+                                          color: Colors.red.withOpacity(0.7)),
                                       onPressed: () {
                                         model.deleteCurrentReadingBook(
                                             userId: userId!, book: book);
@@ -220,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           elevation: 4,
-                          color: Color(0xFFF3E5F5),
+                          color: UiStyle.primaryColorSurface,
                           child: Padding(
                             padding: const EdgeInsets.all(16),
                             child: Column(

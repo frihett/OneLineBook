@@ -71,7 +71,7 @@ class _RakingPageState extends State<RakingPage> {
                       return Container(
                         margin: EdgeInsets.only(bottom: 16),
                         decoration: BoxDecoration(
-                          color: Color(0xFFF3E5F5),
+                          color: UiStyle.primaryColorSurface,
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
@@ -117,7 +117,7 @@ class _RakingPageState extends State<RakingPage> {
                             // Review Content
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFFF6EAF7),
+                                color: UiStyle.primaryColorSurface,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),

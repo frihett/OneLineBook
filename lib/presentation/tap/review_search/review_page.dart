@@ -62,7 +62,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  color: Color(0xFFF3E5F5),
+                  color: UiStyle.primaryColorSurface,
                   elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -102,7 +102,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                   SizedBox(height: 8),
                                   Container(
                                     decoration: BoxDecoration(
-                                        color: Color(0xFFF6EAF7),
+                                        color: UiStyle.primaryColorSurface,
                                         borderRadius: BorderRadius.circular(8)),
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 4),
