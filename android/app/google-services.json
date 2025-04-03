@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1042521521698:android:80167138ae80e2b003547b",
+        "mobilesdk_app_id": "1:1042521521698:android:ceb1eacaabdbdad603547b",
         "android_client_info": {
-          "package_name": "com.example.untitled9"
+          "package_name": "com.seungchan.onelinebook.untitled9"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "1042521521698-ltnng4dsos3qgu9mko1up1cms4nmeefb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.untitled9",
-            "certificate_hash": "c9a646c23dda529334726c282b53f314881d5c6a"
-          }
-        },
         {
           "client_id": "1042521521698-vsi2e2do85sefa3j64m2jso98umvb916.apps.googleusercontent.com",
           "client_type": 3

@@ -32,6 +32,9 @@ class _LoginPageState extends State<LoginPage> {
                     final userCredential =
                         await loginViewModel.signInWithGoogle();
 
+                    print('1');
+                    print(userCredential);
+
                     final user =
                         await loginViewModel.setUpUser(userCredential!);
 
