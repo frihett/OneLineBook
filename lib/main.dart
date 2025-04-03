@@ -44,6 +44,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp.router(
           routerConfig: goRouter,
+          theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
+              appBarTheme:
+                  AppBarTheme(color: Colors.white, scrolledUnderElevation: 0)),
         );
       },
     );
