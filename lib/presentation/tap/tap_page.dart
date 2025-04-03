@@ -31,20 +31,20 @@ class _TapPageState extends State<TapPage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: '홈',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.remove_red_eye_rounded),
-            label: 'MyReviews',
+            label: '나의 리뷰',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'Raking',
+            label: '랭킹',
           ),
 
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Account',
+            label: 'My',
           ),
         ],
       ),
