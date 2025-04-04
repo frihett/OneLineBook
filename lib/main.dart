@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled9/config/ui_style/ui_style.dart';
 import 'package:untitled9/data/data_source/user_data_source.dart';
 import 'package:untitled9/data/repository/user_repository_impl.dart';
 import 'package:untitled9/domain/use_case/create_user_use_case.dart';
@@ -48,8 +49,9 @@ class MyApp extends StatelessWidget {
               scaffoldBackgroundColor: Colors.white,
               appBarTheme:
                   AppBarTheme(color: Colors.white, scrolledUnderElevation: 0),
-          elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor: Colors.white))),
-
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: UiStyle.thirdColor))),
         );
       },
     );
