@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               scaffoldBackgroundColor: Colors.white,
               appBarTheme:
-                  AppBarTheme(color: Colors.white, scrolledUnderElevation: 0)),
+                  AppBarTheme(color: Colors.white, scrolledUnderElevation: 0),
+          elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor: Colors.white))),
+
         );
       },
     );

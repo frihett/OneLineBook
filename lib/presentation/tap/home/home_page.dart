@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                                   flex: 3,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: Color(0xFFF6EAF7),
+                                        color:UiStyle.primaryColorSurface,
                                         borderRadius: BorderRadius.circular(8)),
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 4),
