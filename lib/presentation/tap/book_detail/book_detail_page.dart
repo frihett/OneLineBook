@@ -30,44 +30,45 @@ class _BookDetailPageState extends State<BookDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 32),
               Center(
                 child: widget.book.bookImageUrl.isNotEmpty
                     ? Image.network(
-                  widget.book.bookImageUrl,
-                  height: 250,
-        
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    // 대체 이미지 표시
-                    return Container(
-                      color: Colors.grey[200],
-                      height: 250,
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 100,
-                        color: Colors.grey[600],
-                      ),
-                    );
-                  },
-                )
+                        widget.book.bookImageUrl,
+                        height: 250,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          // 대체 이미지 표시
+                          return Container(
+                            color: Colors.grey[200],
+                            height: 250,
+                            child: Icon(
+                              Icons.image_not_supported,
+                              size: 100,
+                              color: Colors.grey[600],
+                            ),
+                          );
+                        },
+                      )
                     : Container(
-                  color: Colors.grey[200],
-                  height: 250,
-                  child: Icon(
-                    Icons.image_not_supported,
-                    size: 100,
-                    color: Colors.grey[600],
-                  ),
-                ),
+                        color: Colors.grey[200],
+                        height: 250,
+                        child: Icon(
+                          Icons.image_not_supported,
+                          size: 100,
+                          color: Colors.grey[600],
+                        ),
+                      ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 32),
               Text(
                 widget.book.title,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(
-                'Author: ${widget.book.authors.join(', ')}', // Join authors list for better formatting
+                'Author: ${widget.book.authors.join(', ')}',
+                // Join authors list for better formatting
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 16),
