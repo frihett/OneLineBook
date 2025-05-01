@@ -19,7 +19,7 @@ class BookApi {
       'Authorization': 'KakaoAK $apiKey',
     };
 
-    final response = await http.get(url, headers: headers);
+    final response = await client.get(url, headers: headers);
 
     if (response.statusCode == 200) {
       final map = jsonDecode(response.body);
