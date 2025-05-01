@@ -7,8 +7,11 @@ import '../../domain/model/book.dart';
 import '../dto/BookInfoDto.dart';
 
 class BookApi {
+  final http.Client client;
   final String _baseUrl = dotenv.get('KAKAO_BASE_URL');
   final String apiKey = dotenv.get('KAKAO_API_KEY');
+
+  BookApi({http.Client? client}) : client = client ?? http.Client();
 
   Future<List<Book>> getBook({required String query}) async {
     final url = Uri.parse('$_baseUrl?query=$query');
