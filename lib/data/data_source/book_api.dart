@@ -8,10 +8,17 @@ import '../dto/BookInfoDto.dart';
 
 class BookApi {
   final http.Client client;
-  final String _baseUrl = dotenv.get('KAKAO_BASE_URL');
-  final String apiKey = dotenv.get('KAKAO_API_KEY');
+  final String _baseUrl ;
+  final String apiKey ;
 
-  BookApi({http.Client? client}) : client = client ?? http.Client();
+  BookApi({
+    http.Client? client,
+    String? baseUrl,
+    String? apiKey,
+  })  : client = client ?? http.Client(),
+        _baseUrl = baseUrl ?? dotenv.get('KAKAO_BASE_URL'),
+        apiKey = apiKey ?? dotenv.get('KAKAO_API_KEY');
+
 
   Future<List<Book>> getBook({required String query}) async {
     final url = Uri.parse('$_baseUrl?query=$query');
