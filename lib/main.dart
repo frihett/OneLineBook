@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled9/config/ui_style/ui_style.dart';
 import 'package:untitled9/data/data_source/user_data_source.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_KEY']!);
 
   runApp(ChangeNotifierProvider(
       create: (context) => UserProvider(

@@ -15,6 +15,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final loginViewModel = context.read<LoginPageViewModel>();
+    final userProvider = context.read<UserProvider>();
+
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -26,9 +30,6 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 InkWell(
                   onTap: () async {
-                    final loginViewModel = context.read<LoginPageViewModel>();
-                    final userProvider = context.read<UserProvider>();
-
                     final userCredential =
                         await loginViewModel.signInWithGoogle();
 
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                     print(userCredential);
 
                     final user =
-                        await loginViewModel.setUpUser(userCredential!);
+                        await loginViewModel.setUpUserFromGoogle(userCredential!);
 
                     await userProvider.saveUser(user); //파이어스토어에 저장
 
@@ -66,6 +67,46 @@ class _LoginPageState extends State<LoginPage> {
                           'sign in with google',
                           style: TextStyle(color: Colors.grey, fontSize: 17),
                         ),
+                      ],
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    final userCredential =
+                    await loginViewModel.signInWithKakao();
+
+                    print('1');
+                    print(userCredential);
+
+                    final user =
+                    await loginViewModel.setUpUserFromKakao(userCredential!);
+
+                    await userProvider.saveUser(user); //파이어스토어에 저장
+
+                    final fetchedUser = await userProvider.fetchUser(user.userId!); // 파이어스토어로 부터 유저 가저오기
+
+                    if (fetchedUser != null) {
+                      userProvider.setUser(fetchedUser);
+                    }
+                    if (mounted) {
+                      context.go('/home');
+                    }
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    elevation: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('images/kakao.png'),
+                        SizedBox(
+                          width: 10,
+                        ),
+
                       ],
                     ),
                   ),

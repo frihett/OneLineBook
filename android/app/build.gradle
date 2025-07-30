@@ -49,6 +49,11 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        manifestPlaceholders = [KAKAO_NATIVE_KEY: project.findProperty("KAKAO_NATIVE_KEY") ?: "",
+                                applicationName: "io.flutter.app.FlutterApplication"
+        ]
+
     }
 
     lintOptions {

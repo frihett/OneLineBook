@@ -2,14 +2,17 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled9/core/provider/user_provider.dart';
 import 'package:untitled9/data/data_source/google_sign_in_data_source.dart';
+import 'package:untitled9/data/data_source/kakao_sign_in_data_source.dart';
 import 'package:untitled9/data/data_source/review_data_source.dart';
 import 'package:untitled9/data/data_source/user_data_source.dart';
 import 'package:untitled9/data/data_source/user_stream_data_source.dart';
 import 'package:untitled9/data/repository/book_repository_impl.dart';
 import 'package:untitled9/data/repository/firebase_auth_repository_impl.dart';
+import 'package:untitled9/data/repository/kakao_auth_repository_impl.dart';
 import 'package:untitled9/data/repository/review_repository_impl.dart';
 import 'package:untitled9/data/repository/user_repository_impl.dart';
 import 'package:untitled9/data/repository/user_stream_repository_impl.dart';
+import 'package:untitled9/domain/repository/kakao_auth_repository.dart';
 import 'package:untitled9/domain/use_case/add_current_reading_book_use_case.dart';
 import 'package:untitled9/domain/use_case/add_users_review_use_case.dart';
 import 'package:untitled9/domain/use_case/create_review_use_case.dart';
@@ -196,15 +199,10 @@ final goRouter = GoRouter(
             create: (context) => LoginPageViewModel(
                 firebaseAuthRepository: FirebaseAuthRepositoryImpl(
                     googleSignInDataSource: GoogleSignInDataSource()),
-                userProvider: UserProvider(
-                    getUserUseCase: GetUserUseCase(
-                        userRepository: UserRepositoryImpl(
-                            userDataSource: UserDataSource())),
-                    createUserUseCase: CreateUserUseCase(
-                        userRepository: UserRepositoryImpl(
-                            userDataSource: UserDataSource()))),
                 userRepository:
-                    UserRepositoryImpl(userDataSource: UserDataSource())),
+                    UserRepositoryImpl(userDataSource: UserDataSource()),
+                kakaoAuthRepository: KakaoAuthRepositoryImpl(
+                    dataSource: KakaoSignInDataSource())),
             child: LoginPage(),
           );
         }),
