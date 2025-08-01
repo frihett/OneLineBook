@@ -17,6 +17,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() async {
+      final userProvider = context.read<UserProvider>();
+      final userId = userProvider.user?.userId;
+      final model = context.read<HomePageViewModel>();
+
+      if (userId != null) {
+        await model.registerFCMToken(userId);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
