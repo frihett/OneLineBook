@@ -56,18 +56,22 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(7),
                     ),
                     elevation: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('images/google.png'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'sign in with google',
-                          style: TextStyle(color: Colors.grey, fontSize: 17),
-                        ),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('images/google.png'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'sign in with google',
+                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
