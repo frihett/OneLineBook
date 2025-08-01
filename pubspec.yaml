@@ -50,6 +50,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   carousel_slider: ^5.0.0
   mockito: ^5.4.4
+  firebase_messaging: ^15.2.10
 
 dev_dependencies:
   flutter_test:
